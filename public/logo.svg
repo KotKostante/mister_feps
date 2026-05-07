@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- фон круга — голубой -->
+  <circle cx="60" cy="60" r="60" fill="#00BCFF"/>
+
+  <!-- MISTER — через встроенный шрифт: text с foreignObject fallback -->
+  <!-- Используем тег text с font-face из Google Fonts для SVG рендера -->
+  <defs>
+    <style>
+      .logo-mister {
+        font-family: 'Arial Black', 'Arial Bold', Impact, 'Helvetica Neue', sans-serif;
+        font-size: 16px;
+        font-weight: 900;
+        fill: #ffffff;
+        letter-spacing: 3px;
+      }
+      .logo-fapc {
+        font-family: 'Arial Black', 'Arial Bold', Impact, 'Helvetica Neue', sans-serif;
+        font-size: 46px;
+        font-weight: 900;
+        fill: #ffffff;
+        letter-spacing: -1px;
+      }
+    </style>
+  </defs>
+
+  <text x="60" y="46" class="logo-mister" text-anchor="middle">MISTER</text>
+  <text x="60" y="87" class="logo-fapc" text-anchor="middle">FAPC</text>
+</svg>

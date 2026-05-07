@@ -1,0 +1,379 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Логотип Mr. Fapc ── */
+.logo-mark {
+  font-family: var(--font-pt-sans), 'PT Sans', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  color: #ffffff;
+}
+
+.logo-mister {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  line-height: 1;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+.logo-fapc {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+:root {
+  --background: 0 0% 98%;
+  --foreground: 222 47% 11%;
+  --surface: 0 0% 100%;
+  --muted: 215 16% 47%;
+  --border: 214 32% 91%;
+  --primary: 337 91% 51%;             /* #F41067 малиновый */
+  --primary-foreground: 0 0% 100%;
+  --accent: 196 100% 50%;             /* #00BCFF голубой */
+  --success: 142 71% 45%;
+  --warning: 32 95% 44%;
+  --error: 0 72% 51%;
+}
+
+.dark {
+  --background: 0 0% 10%;             /* #1a1a1a */
+  --foreground: 0 0% 90%;             /* #e5e5e5 */
+  --surface: 0 0% 13%;                /* #202020 карточки */
+  --muted: 0 0% 60%;
+  --border: 224 34% 25%;              /* #2a3656 */
+  --primary: 337 91% 51%;             /* #F41067 малиновый */
+  --primary-foreground: 0 0% 100%;
+  --accent: 196 100% 50%;             /* #00BCFF голубой */
+  --success: 142 71% 45%;
+  --warning: 38 92% 50%;
+  --error: 0 91% 71%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: hsl(var(--accent) / 0.22);
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+}
+
+.field {
+  min-height: 48px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  padding: 0 12px;
+  color: hsl(var(--foreground));
+  outline: none;
+}
+
+.field:focus {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.16);
+}
+
+.info-glint {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.info-glint::after {
+  content: "";
+  position: absolute;
+  inset: -45% auto -45% -65%;
+  z-index: 0;
+  width: 46%;
+  transform: skewX(-18deg) translateX(-120%);
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.18), hsl(var(--accent) / 0.20), transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.info-glint > * {
+  position: relative;
+  z-index: 1;
+}
+
+.info-glint:hover::after,
+.info-glint:focus-within::after {
+  animation: info-glint-sweep 960ms cubic-bezier(.2, .9, .2, 1);
+  opacity: 1;
+}
+
+.animated-number {
+  display: inline-block;
+  min-width: 2ch;
+  font-variant-numeric: tabular-nums;
+}
+
+.info-glint:hover .animated-number {
+  text-shadow: 0 0 18px hsl(var(--primary) / 0.22);
+}
+
+@keyframes info-glint-sweep {
+  from {
+    transform: skewX(-18deg) translateX(-120%);
+  }
+  to {
+    transform: skewX(-18deg) translateX(520%);
+  }
+}
+
+.btn-kinetic {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition:
+    transform 220ms cubic-bezier(.2, .9, .2, 1),
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease;
+  will-change: transform;
+}
+
+.btn-kinetic::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.btn-kinetic::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  bottom: -40%;
+  left: -70%;
+  z-index: -1;
+  width: 46%;
+  transform: skewX(-18deg) translateX(-120%);
+  background: linear-gradient(90deg, transparent, hsl(var(--primary-foreground) / 0.32), transparent);
+  opacity: 0;
+}
+
+.btn-kinetic:hover {
+  transform: translateY(-2px);
+}
+
+.btn-kinetic:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 90ms;
+}
+
+.btn-kinetic:disabled,
+.btn-kinetic[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+}
+
+.btn-kinetic-primary {
+  box-shadow: 0 12px 28px hsl(var(--primary) / 0.22);
+}
+
+.btn-kinetic-primary::before {
+  background:
+    radial-gradient(circle at 22% 15%, hsl(var(--accent) / 0.42), transparent 34%),
+    linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+}
+
+.btn-kinetic-primary:hover {
+  box-shadow: 0 18px 42px hsl(var(--primary) / 0.30);
+}
+
+.btn-kinetic-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-kinetic-primary:hover::after {
+  animation: button-sheen 820ms cubic-bezier(.2, .9, .2, 1);
+  opacity: 1;
+}
+
+.btn-kinetic-secondary:hover {
+  border-color: hsl(var(--primary) / 0.68);
+  box-shadow: 0 14px 36px hsl(var(--foreground) / 0.10);
+}
+
+.btn-kinetic-secondary::before {
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.10), hsl(var(--accent) / 0.08));
+}
+
+.btn-kinetic-secondary:hover::before,
+.btn-kinetic-ghost:hover::before {
+  opacity: 1;
+}
+
+.btn-kinetic-ghost:hover {
+  background: hsl(var(--surface));
+  box-shadow: 0 10px 28px hsl(var(--foreground) / 0.08);
+}
+
+.btn-kinetic-ghost::before {
+  background: hsl(var(--primary) / 0.08);
+}
+
+@keyframes button-sheen {
+  from {
+    transform: skewX(-18deg) translateX(-120%);
+  }
+  to {
+    transform: skewX(-18deg) translateX(460%);
+  }
+}
+
+[data-hero-animate],
+[data-animate-section],
+[data-animate="card"],
+[data-animate="item"] {
+  will-change: transform, opacity;
+}
+
+html.motion-enabled:not(.motion-reduced) [data-hero-animate]:not(.motion-ready),
+html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="card"]:not(.motion-ready),
+html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="item"]:not(.motion-ready) {
+  opacity: 0;
+}
+
+.motion-ready {
+  opacity: 1;
+}
+
+[data-animate="card"] {
+  transition:
+    transform 220ms cubic-bezier(.2, .9, .2, 1),
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+[data-animate="card"]:hover {
+  transform: translateY(-4px);
+  border-color: hsl(var(--primary) / 0.65);
+  box-shadow: 0 22px 70px hsl(var(--foreground) / 0.12);
+}
+
+[data-animate="card"] svg {
+  transition: transform 220ms cubic-bezier(.2, .9, .2, 1);
+}
+
+[data-animate="card"]:hover svg {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.kinetic-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.kinetic-panel::before,
+.kinetic-panel::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+}
+
+.kinetic-panel::before {
+  inset: -18% auto auto -12%;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, hsl(var(--primary) / 0.18), transparent 68%);
+}
+
+.kinetic-panel::after {
+  right: -18%;
+  bottom: -24%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, hsl(var(--accent) / 0.18), transparent 66%);
+}
+
+.kinetic-line {
+  position: absolute;
+  inset: auto 24px 24px 24px;
+  height: 1px;
+  overflow: hidden;
+  background: hsl(var(--border));
+}
+
+.kinetic-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+  animation: scan-line 3.8s cubic-bezier(.2, .9, .2, 1) infinite;
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateX(-120%);
+  }
+  48%,
+  100% {
+    transform: translateX(260%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  [data-hero-animate],
+  [data-animate-section],
+  [data-animate="card"],
+  [data-animate="item"],
+  .btn-kinetic,
+  .info-glint {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .btn-kinetic::after,
+  .info-glint::after {
+    display: none !important;
+  }
+}
