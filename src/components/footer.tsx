@@ -21,9 +21,10 @@ export function Footer() {
         <div>
           <p className="mb-4 font-semibold">Услуги</p>
           <div className="grid gap-2 text-sm text-muted">
-            {services.map((service) => (
+            {services.slice(0, 8).map((service) => (
               <Link key={service.slug} href={`/uslugi/${service.slug}/`}>{service.title}</Link>
             ))}
+            <Link href="/uslugi/" className="mt-1 font-semibold text-accent">Все услуги →</Link>
           </div>
         </div>
         <div>
