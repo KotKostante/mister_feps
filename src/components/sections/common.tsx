@@ -6,21 +6,7 @@ import { LeadForm } from "@/components/lead-form";
 import { Badge, ButtonLink, Card, Section, SectionHeading } from "@/components/ui";
 import { advantages, cases, cities, faqs, processSteps, reviewPlatforms, reviews, services } from "@/data/site";
 
-export function ServicesGrid() {
-  return (
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-      {services.map((service) => {
-        const Icon = service.icon;
-        return (
-          <Link key={service.slug} href={`/uslugi/${service.slug}/`} className="group flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 text-sm font-semibold transition hover:border-accent hover:text-accent">
-            <Icon className="h-5 w-5 shrink-0 text-accent" />
-            <span>{service.title}</span>
-          </Link>
-        );
-      })}
-    </div>
-  );
-}
+export { ServicesGrid } from "@/components/services-grid";
 
 export function ProcessSection() {
   return (
