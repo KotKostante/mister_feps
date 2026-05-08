@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BadgeCheck, CheckCircle2, FileCheck2, CreditCard, Users } from "lucide-react";
 import { AnimatedNumber } from "@/components/animated-number";
 import { CleanWindowDemo } from "@/components/clean-window-demo";
-import { CasesSection, CityGrid, FaqSection, FinalCta, ProcessSection, ServicesGrid, SlaMiniSection } from "@/components/sections/common";
+import { CasesSection, CityGrid, FaqSection, FinalCta, ProcessSection, ReviewsSection, ServicesGrid, SlaMiniSection } from "@/components/sections/common";
 import { ButtonLink, Card, Section, SectionHeading } from "@/components/ui";
 import { risks, segments, trustStats } from "@/data/site";
 import { faqSchema } from "@/lib/seo";
@@ -233,6 +233,7 @@ export default function HomePage() {
       <ProcessSection />
       <SlaMiniSection />
       <CasesSection />
+      <ReviewsSection />
 
       <Section>
         <SectionHeading title="Клининговая компания в 8 городах России" text="Локальные офисы, телефоны и выезд менеджера в день обращения в Екатеринбурге, Перми, Челябинске, Тюмени, Новосибирске и других городах." />

@@ -1,10 +1,10 @@
-import { CheckCircle2, FileCheck2, ShieldCheck } from "lucide-react";
+import { CheckCircle2, ExternalLink, FileCheck2, ShieldCheck, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatedNumber } from "@/components/animated-number";
 import { LeadForm } from "@/components/lead-form";
 import { Badge, ButtonLink, Card, Section, SectionHeading } from "@/components/ui";
-import { advantages, cases, cities, faqs, processSteps, services } from "@/data/site";
+import { advantages, cases, cities, faqs, processSteps, reviewPlatforms, reviews, services } from "@/data/site";
 
 export function ServicesGrid() {
   return (
@@ -146,6 +146,60 @@ export function CityGrid() {
         </Link>
       ))}
     </div>
+  );
+}
+
+export function ReviewsSection() {
+  return (
+    <Section className="bg-surface">
+      <div className="mb-10 flex flex-col items-center text-center">
+        <p className="text-sm font-semibold uppercase tracking-widest text-accent">Нам доверяют</p>
+        <div className="mt-3 flex items-end gap-3">
+          <span className="text-6xl font-bold leading-none">4.9</span>
+          <div className="mb-1 flex flex-col items-start gap-1">
+            <div className="flex gap-0.5">
+              {[1,2,3,4,5].map((i) => (
+                <Star key={i} className="h-5 w-5 fill-accent text-accent" />
+              ))}
+            </div>
+            <span className="text-sm text-muted">средний рейтинг по площадкам</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        {reviews.map((r) => (
+          <Card key={r.name}>
+            <div className="flex gap-0.5">
+              {Array.from({ length: r.rating }).map((_, i) => (
+                <Star key={i} className="h-4 w-4 fill-accent text-accent" />
+              ))}
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-muted">«{r.text}»</p>
+            <div className="mt-4 border-t border-border pt-4">
+              <p className="font-semibold">{r.name}</p>
+              <p className="text-xs text-muted">{r.role}</p>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
+        {reviewPlatforms.map((p) => (
+          <a
+            key={p.name}
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl border border-border bg-background px-5 py-2.5 text-sm font-semibold transition hover:border-accent/50 hover:text-accent"
+          >
+            <Star className="h-4 w-4 fill-accent text-accent" />
+            {p.name} — {p.rating}
+            <ExternalLink className="h-3.5 w-3.5 opacity-50" />
+          </a>
+        ))}
+      </div>
+    </Section>
   );
 }
 
