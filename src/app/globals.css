@@ -362,6 +362,80 @@ html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="i
   }
 }
 
+/* ── Chibi character animations ──────────────────────────────────────────── */
+@keyframes chi-appear {
+  from { opacity: 0; transform: scale(0.4) translateY(12px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+@keyframes chi-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-7px); }
+}
+@keyframes chi-bounce {
+  0%, 100% { transform: translateY(0)    scaleY(1); }
+  35%       { transform: translateY(-8px) scaleY(0.97); }
+  60%       { transform: translateY(-4px) scaleY(1.02); }
+}
+@keyframes speech-pop {
+  0%   { opacity: 0; transform: scale(0.3); }
+  65%  { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes phone-ring {
+  0%, 100% { transform: rotate(0deg); }
+  20%       { transform: rotate(-14deg); }
+  60%       { transform: rotate(14deg); }
+}
+@keyframes clean-sweep {
+  0%, 100% { transform: translateX(0)    rotate(-6deg); }
+  50%       { transform: translateX(-18px) rotate(8deg); }
+}
+@keyframes check-pop {
+  0%   { opacity: 0; transform: scale(0)   rotate(-20deg); }
+  60%  { opacity: 1; transform: scale(1.25) rotate(5deg); }
+  100% { opacity: 1; transform: scale(1)   rotate(0deg); }
+}
+@keyframes char-swap-out {
+  from { opacity: 1; transform: scale(1)   rotate(0deg); }
+  to   { opacity: 0; transform: scale(0.1) rotate(200deg); }
+}
+@keyframes char-swap-in {
+  from { opacity: 0; transform: scale(0.1) rotate(-200deg); }
+  to   { opacity: 1; transform: scale(1)   rotate(0deg); }
+}
+@keyframes pen-sign {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(24px, 2px); }
+}
+@keyframes split-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-right {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes finger-point {
+  0%, 100% { transform: rotate(0deg); }
+  50%       { transform: rotate(-18deg) translateX(4px); }
+}
+@keyframes tablet-offer {
+  from { transform: rotate(0deg) translateX(0); }
+  to   { transform: rotate(12deg) translateX(8px); }
+}
+@keyframes ring-pulse {
+  0%   { r: 14; opacity: 0.6; }
+  100% { r: 28; opacity: 0; }
+}
+@keyframes stars-twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1.2); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

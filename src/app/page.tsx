@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck, CheckCircle2, FileCheck2, CreditCard, Users } from "lucide-react";
 import { AnimatedNumber } from "@/components/animated-number";
 import { CleanWindowDemo } from "@/components/clean-window-demo";
 import { CasesSection, CityGrid, FaqSection, FinalCta, ProcessSection, ServicesGrid, SlaMiniSection } from "@/components/sections/common";
@@ -136,42 +136,45 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════
           FEATURE SPLIT — как в Containa: фото + текст
       ══════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-[#070a0d]">
-        <div className="mx-auto grid w-full max-w-[1200px] px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-24">
+      <section className="relative overflow-hidden bg-background">
+        <div className="mx-auto grid w-full max-w-[1200px] px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-stretch lg:gap-16 lg:px-8 lg:py-24">
           {/* фото слева */}
           <div className="relative overflow-hidden rounded-2xl">
             <img
-              src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=900&q=80"
+              src="/foto1.png"
               alt="Профессиональный клининг производственного помещения"
-              className="h-[420px] w-full object-cover lg:h-[520px]"
+              className="h-[420px] w-full object-cover lg:h-full lg:min-h-[480px]"
             />
-            <div className="absolute inset-0 bg-accent/15" />
           </div>
           {/* текст справа */}
           <div data-animate-section>
             <span className="text-xs font-semibold uppercase tracking-widest text-accent">Почему выбирают нас</span>
-            <h2 data-animate="card" className="mt-4 text-3xl font-bold leading-tight text-white sm:text-4xl">
+            <h2 data-animate="card" className="mt-4 text-3xl font-bold leading-tight text-foreground sm:text-4xl">
               Контроль, прозрачность и результат — от заявки до акта
             </h2>
-            <p className="mt-4 text-lg leading-8 text-white/60">
-              Не просто уборка — полный цикл управления чистотой объекта. Вы видите кто работает, что сделано и какое качество принято.
+            <p className="mt-4 text-lg leading-8 text-muted">
+              Не просто уборка — полный цикл управления чистотой объекта.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {[
-                { title: "Чек-листы по каждому объекту", desc: "Фиксируем каждую зону — ничего не пропускается" },
-                { title: "Закреплённая команда", desc: "Один менеджер, один бригадир, один стандарт" },
-                { title: "Оплата после приёмки", desc: "Платите только за принятую работу" },
-                { title: "Документы для юрлиц", desc: "Договор, КП, акты, ЭДО, работа с НДС" },
-              ].map((item) => (
-                <div key={item.title} data-animate="card" className="rounded-xl border border-white/10 bg-white/5 p-4">
-                  <p className="font-semibold text-white">{item.title}</p>
-                  <p className="mt-1 text-sm text-white/55">{item.desc}</p>
-                </div>
-              ))}
+                { icon: CheckCircle2, title: "Чек-листы по каждому объекту", desc: "Фиксируем каждую зону — ничего не пропускается" },
+                { icon: Users, title: "Закреплённая команда", desc: "Один менеджер, один бригадир, один стандарт" },
+                { icon: CreditCard, title: "Оплата после приёмки", desc: "Платите только за принятую работу" },
+                { icon: FileCheck2, title: "Документы для юрлиц", desc: "Договор, КП, акты, ЭДО, работа с НДС" },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.title} className="rounded-xl border border-border bg-surface p-4">
+                    <Icon className="mb-3 h-5 w-5 text-accent" />
+                    <p className="font-semibold text-foreground">{item.title}</p>
+                    <p className="mt-1 text-sm text-muted">{item.desc}</p>
+                  </div>
+                );
+              })}
             </div>
-            <div className="mt-8 flex gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/sla/">Открыть SLA</ButtonLink>
-              <a href="/contacts/#lead-form" className="inline-flex items-center rounded-xl border border-white/20 bg-transparent px-5 py-2.5 text-sm font-semibold text-white transition hover:border-white/40">
+              <a href="/contacts/#lead-form" className="inline-flex items-center rounded-xl border border-accent/40 bg-accent/8 px-5 py-2.5 text-sm font-semibold text-accent transition hover:border-accent/70 hover:bg-accent/15">
                 Получить пример регламента
               </a>
             </div>
@@ -183,7 +186,7 @@ export default function HomePage() {
           Остальные секции — светлая тема
       ══════════════════════════════════════════════════════ */}
       <Section>
-        <SectionHeading title="Услуги клининговой компании по типам объектов" text="Работаем с B2B-объектами любого масштаба: от офиса 200 м² до производственного комплекса 50 000 м²." />
+        <SectionHeading title="Услуги клининговой компании по типам объектов" text="Работаем с B2B-объектами любого масштаба: от офиса 200 м² до производственного комплекса 50 000 м²." />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-animate-section>
           {segments.map((segment) => {
             const Icon = segment.icon;
@@ -198,13 +201,27 @@ export default function HomePage() {
       </Section>
 
       <Section className="bg-surface">
-        <SectionHeading title="Риски, которые берёт на себя клининговая компания" text="Для руководителя объекта главное — не процесс уборки, а отсутствие операционных сбоев." />
-        <div className="grid gap-4 md:grid-cols-3" data-animate-section>
-          {risks.map((risk) => (
-            <Card key={risk} className="shadow-none" data-animate="card">
-              <p className="font-semibold">{risk}</p>
-            </Card>
-          ))}
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-stretch lg:gap-16">
+          {/* фото слева */}
+          <div className="relative overflow-hidden rounded-2xl">
+            <img
+              src="/foto2.png"
+              alt="Риски клининга для бизнеса"
+              className="h-[420px] w-full object-cover lg:h-full lg:min-h-[480px]"
+            />
+          </div>
+          {/* заголовок + карточки справа */}
+          <div>
+            <SectionHeading title="Риски, которые берёт на себя клининговая компания" text="Для руководителя объекта главное — не процесс уборки, а отсутствие операционных сбоев." />
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {risks.map((risk) => (
+                <Card key={risk.title} className="shadow-none" data-animate="card">
+                  <p className="font-semibold text-foreground">{risk.title}</p>
+                  <p className="mt-1 text-sm text-muted">{risk.desc}</p>
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
       </Section>
 

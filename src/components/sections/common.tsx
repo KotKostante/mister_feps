@@ -1,4 +1,5 @@
 import { CheckCircle2, FileCheck2, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatedNumber } from "@/components/animated-number";
 import { LeadForm } from "@/components/lead-form";
@@ -31,9 +32,10 @@ export function ProcessSection() {
       <SectionHeading title="Как запускаем уборку на объекте" text="Показываем процесс до договора: кто выходит, как считается цена, кто принимает работы и как закрываются замечания." />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {processSteps.map((step, index) => (
-          <Card key={step}>
+          <Card key={step.title}>
             <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-sm font-bold text-white">{index + 1}</span>
-            <p className="mt-4 font-semibold">{step}</p>
+            <p className="mt-4 font-semibold">{step.title}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{step.desc}</p>
           </Card>
         ))}
       </div>
@@ -85,7 +87,7 @@ export function CasesSection() {
 
   return (
     <Section>
-      <SectionHeading title="Кейсы с цифрами" text="Переносим в сайт доказательства масштаба: федеральные клиенты, площади, бригады и регулярность работ." />
+      <SectionHeading title="Кейсы с цифрами" text="Федеральные клиенты, реальные площади, постоянные бригады — цифры, а не обещания." />
       <div className="grid gap-4 lg:grid-cols-3">
         {cases.map((item, index) => (
           <Card key={item.company}>
@@ -150,15 +152,24 @@ export function CityGrid() {
 export function FinalCta({ city, service }: { city?: string; service?: string }) {
   return (
     <Section>
-      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-stretch">
+        <div className="relative min-h-[320px] overflow-hidden rounded-2xl lg:min-h-0">
+          <Image
+            src="/foto3.png"
+            alt="Уборка объекта командой Mister FAPC"
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+          />
+        </div>
         <div>
           <Badge>Расчет и бесплатный осмотр</Badge>
           <h2 className="mt-5 text-3xl font-semibold leading-tight sm:text-4xl">Получите смету, график и чек-лист под ваш объект</h2>
           <p className="mt-4 text-lg leading-8 text-muted">
             Менеджер уточнит задачу, предложит схему уборки и подготовит расчет без скрытых доплат. На объект можно выехать в день обращения.
           </p>
+          <LeadForm city={city} service={service} />
         </div>
-        <LeadForm city={city} service={service} />
       </div>
     </Section>
   );
