@@ -1,14 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { services } from "@/data/site";
-
-const INITIAL_COUNT = 8;
 
 export function ServicesGrid({ citySlug }: { citySlug?: string } = {}) {
   const [expanded, setExpanded] = useState(false);
-  const visible = expanded ? services : services.slice(0, INITIAL_COUNT);
+  const [initialCount, setInitialCount] = useState(16);
+
+  useEffect(() => {
+    setInitialCount(window.innerWidth < 640 ? 5 : 16);
+  }, []);
+
+  const visible = expanded ? services : services.slice(0, initialCount);
 
   const href = (slug: string) =>
     citySlug ? `/goroda/${citySlug}/${slug}/` : `/uslugi/${slug}/`;
