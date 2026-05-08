@@ -6,9 +6,12 @@ import { services } from "@/data/site";
 
 const INITIAL_COUNT = 8;
 
-export function ServicesGrid() {
+export function ServicesGrid({ citySlug }: { citySlug?: string } = {}) {
   const [expanded, setExpanded] = useState(false);
   const visible = expanded ? services : services.slice(0, INITIAL_COUNT);
+
+  const href = (slug: string) =>
+    citySlug ? `/goroda/${citySlug}/${slug}/` : `/uslugi/${slug}/`;
 
   return (
     <div>
@@ -18,7 +21,7 @@ export function ServicesGrid() {
           return (
             <Link
               key={service.slug}
-              href={`/uslugi/${service.slug}/`}
+              href={href(service.slug)}
               className="group flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 text-sm font-semibold transition hover:border-accent hover:text-accent"
             >
               <Icon className="h-5 w-5 shrink-0 text-accent" />

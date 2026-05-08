@@ -6,8 +6,9 @@ import { AnimatedNumber } from "@/components/animated-number";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { JsonLd } from "@/components/json-ld";
 import { CasesSection, FaqSection, FinalCta, ProcessSection, ReviewsSection, SlaMiniSection } from "@/components/sections/common";
-import { Badge, ButtonLink, Card, Section, SectionHeading } from "@/components/ui";
-import { cities, faqs, services, trustStats } from "@/data/site";
+import { ServicesGrid } from "@/components/services-grid";
+import { Badge, ButtonLink, Section, SectionHeading } from "@/components/ui";
+import { cities, faqs, trustStats } from "@/data/site";
 import { faqSchema, localBusinessSchema } from "@/lib/seo";
 import { absoluteUrl, phoneHref } from "@/lib/utils";
 
@@ -192,21 +193,7 @@ export default async function CityPage({ params }: Props) {
           title={`Услуги клининга в ${city.prepositional}`}
           text={`Каждая страница — отдельный расчёт под объект в ${city.prepositional}: состав работ, смета и документы.`}
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
-              <a key={service.slug} href={`/goroda/${city.slug}/${service.slug}/`} className="group rounded-xl">
-                <Card className="h-full transition group-hover:-translate-y-1 group-hover:border-accent">
-                  <Icon className="mb-4 h-7 w-7 text-accent" />
-                  <h2 className="text-lg font-semibold">{service.title}</h2>
-                  <p className="mt-2 text-sm leading-6 text-muted">{service.description}</p>
-                  <p className="mt-3 text-sm font-semibold text-accent">{service.priceFrom}</p>
-                </Card>
-              </a>
-            );
-          })}
-        </div>
+        <ServicesGrid citySlug={city.slug} />
       </Section>
 
       <ProcessSection />
