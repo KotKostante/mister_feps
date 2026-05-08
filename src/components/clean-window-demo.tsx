@@ -50,7 +50,7 @@ export function CleanWindowDemo() {
         <label className="grid gap-2">
           <div className="flex items-center justify-between gap-3 text-sm">
             <span className="font-semibold">Площадь объекта</span>
-            <span className="rounded-lg border border-border bg-background px-2 py-1 font-bold text-primary">{area} м2</span>
+            <span className="rounded-lg border border-border bg-background px-2 py-1 font-bold text-foreground">{area} м2</span>
           </div>
           <input
             type="range"

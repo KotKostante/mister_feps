@@ -29,17 +29,19 @@ export default function HomePage() {
       ══════════════════════════════════════════════════════ */}
       <section className="relative isolate overflow-hidden">
         {/* фоновое фото */}
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-x-0 top-0 -z-10 h-[1100px] lg:inset-0 lg:h-auto">
           <img
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
             alt=""
-            className="h-full w-full object-cover"
+            className="hero-bg-img h-full w-full object-cover"
             aria-hidden="true"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#070a0d]/96 via-[#070a0d]/82 to-[#070a0d]/55" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#070a0d]/60 via-transparent to-transparent" />
           {/* усиленное затемнение на мобайле для читаемости текста */}
           <div className="absolute inset-0 bg-[#070a0d]/55 lg:hidden" />
+          {/* плавный переход снизу на мобайле */}
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background lg:hidden" />
         </div>
 
         {/* розовое свечение */}
@@ -104,12 +106,12 @@ export default function HomePage() {
           {/* правая колонка — карточка */}
           <div
             data-hero-animate="panel"
-            className="rounded-2xl border border-white/10 bg-white/6 p-6 backdrop-blur-md"
+            className="rounded-2xl border border-border bg-background/90 p-6 backdrop-blur-xl"
           >
             <div className="rounded-xl bg-accent/15 p-5">
               <BadgeCheck className="h-10 w-10 text-accent" />
-              <p className="mt-4 text-xl font-semibold text-white">Управляемая чистота вместо ручного контроля</p>
-              <p className="mt-2 text-sm leading-7 text-white/60">
+              <p className="mt-4 text-xl font-semibold text-foreground">Управляемая чистота вместо ручного контроля</p>
+              <p className="mt-2 text-sm leading-7 text-muted">
                 Смета, КП, договор, чек-листы, закреплённая команда, отдел контроля качества и документы для юрлиц.
               </p>
             </div>
@@ -117,7 +119,7 @@ export default function HomePage() {
               {["Бесплатный выезд менеджера", "Клинтест и подбор химии", "Оплата после приёмки", "44-ФЗ / 223-ФЗ для тендеров"].map((item) => (
                 <div
                   key={item}
-                  className="flex items-center gap-3 rounded-lg border border-white/8 bg-white/4 px-4 py-3 text-sm font-medium text-white/80"
+                  className="flex items-center gap-3 rounded-lg border border-accent/50 bg-black/8 dark:bg-white/6 px-4 py-3 text-base font-semibold text-accent"
                 >
                   <span className="h-1.5 w-1.5 flex-none rounded-full bg-accent" />
                   {item}

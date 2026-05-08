@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  color: #ffffff;
+  color: hsl(var(--foreground));
 }
 
 .logo-mister {
@@ -43,11 +43,11 @@
 }
 
 .dark {
-  --background: 0 0% 10%;             /* #1a1a1a */
+  --background: 0 0% 15%;             /* ~#262626 */
   --foreground: 0 0% 90%;             /* #e5e5e5 */
-  --surface: 0 0% 13%;                /* #202020 карточки */
+  --surface: 0 0% 18%;                /* ~#2e2e2e карточки */
   --muted: 0 0% 60%;
-  --border: 224 34% 25%;              /* #2a3656 */
+  --border: 224 34% 30%;              /* чуть светлее бордер */
   --primary: 337 91% 51%;             /* #F41067 малиновый */
   --primary-foreground: 0 0% 100%;
   --accent: 196 100% 50%;             /* #00BCFF голубой */
@@ -58,6 +58,16 @@
 
 * {
   box-sizing: border-box;
+}
+
+.hero-bg-img {
+  object-position: center bottom;
+}
+
+@media (min-width: 1024px) {
+  .hero-bg-img {
+    object-position: center center;
+  }
 }
 
 html {
