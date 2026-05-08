@@ -43,7 +43,7 @@ export function Button({ className, variant = "primary", ...props }: ButtonProps
     <button
       className={cn(
         "btn-kinetic focus-ring inline-flex min-h-12 items-center justify-center rounded-lg px-5 text-base font-semibold",
-        variant === "primary" && "btn-kinetic-primary bg-primary text-primary-foreground",
+        variant === "primary" && "btn-kinetic-primary bg-accent text-white",
         variant === "secondary" && "btn-kinetic-secondary border border-border bg-surface text-foreground",
         variant === "ghost" && "btn-kinetic-ghost text-foreground",
         className
@@ -64,7 +64,7 @@ export function ButtonLink({ className, variant = "primary", href, ...props }: B
       href={href}
       className={cn(
         "btn-kinetic focus-ring inline-flex min-h-12 items-center justify-center rounded-lg px-5 text-base font-semibold",
-        variant === "primary" && "btn-kinetic-primary bg-primary text-primary-foreground",
+        variant === "primary" && "btn-kinetic-primary bg-accent text-white",
         variant === "secondary" && "btn-kinetic-secondary border border-border bg-surface text-foreground",
         variant === "ghost" && "btn-kinetic-ghost text-foreground",
         className

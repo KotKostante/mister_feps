@@ -37,11 +37,11 @@ export function CleanWindowDemo() {
   return (
     <div className="info-glint rounded-xl border border-border bg-surface p-4 shadow-soft">
       <div className="mb-4 flex items-start gap-3">
-        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
+        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-accent/10 text-accent">
           <Calculator className="h-5 w-5" />
         </span>
         <div>
-          <p className="text-sm font-semibold text-primary">Быстрый расчет объекта</p>
+          <p className="text-sm font-semibold text-accent">Быстрый расчет объекта</p>
           <p className="text-xs leading-5 text-muted">Поиграйте с площадью и графиком. Точная смета фиксируется после осмотра.</p>
         </div>
       </div>
@@ -59,7 +59,7 @@ export function CleanWindowDemo() {
             step="100"
             value={area}
             onChange={(event) => setArea(Number(event.target.value))}
-            className="accent-primary"
+            className="accent-[#00BCFF]"
           />
         </label>
 
@@ -72,7 +72,7 @@ export function CleanWindowDemo() {
                 type="button"
                 className={[
                   "btn-kinetic rounded-lg border px-2 py-2 text-xs font-semibold",
-                  objectType === item.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-muted"
+                  objectType === item.id ? "border-accent bg-accent text-white" : "border-border bg-background text-muted"
                 ].join(" ")}
                 onClick={() => setObjectType(item.id)}
               >
@@ -91,7 +91,7 @@ export function CleanWindowDemo() {
                 type="button"
                 className={[
                   "btn-kinetic rounded-lg border px-2 py-2 text-xs font-semibold",
-                  schedule === item.id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-muted"
+                  schedule === item.id ? "border-accent bg-accent text-white" : "border-border bg-background text-muted"
                 ].join(" ")}
                 onClick={() => setSchedule(item.id)}
               >
@@ -102,19 +102,19 @@ export function CleanWindowDemo() {
         </div>
 
         <div className="rounded-lg border border-border bg-background p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Ориентир</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Ориентир</p>
           <p className="mt-2 text-3xl font-bold">от {formatRub(result.estimate)} ₽</p>
           <div className="mt-4 grid gap-2 text-sm text-muted">
             <p className="flex items-center gap-2">
-              <UsersRound className="h-4 w-4 text-primary" />
+              <UsersRound className="h-4 w-4 text-accent" />
               Команда: {result.team} специалиста
             </p>
             <p className="flex items-center gap-2">
-              <Clock3 className="h-4 w-4 text-primary" />
+              <Clock3 className="h-4 w-4 text-accent" />
               Формат: {result.shifts}, {result.plan.note}
             </p>
             <p className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-success" />
+              <CheckCircle2 className="h-4 w-4 text-accent" />
               Чек-лист, менеджер и приемка входят в запуск
             </p>
           </div>

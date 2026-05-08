@@ -13,10 +13,10 @@ export function ServicesGrid() {
         return (
           <Link key={service.slug} href={`/uslugi/${service.slug}/`} className="group rounded-xl">
             <Card className="h-full transition group-hover:-translate-y-1 group-hover:border-primary">
-              <Icon className="mb-5 h-8 w-8 text-primary" />
+              <Icon className="mb-5 h-8 w-8 text-accent" />
               <h3 className="text-xl font-semibold">{service.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted">{service.description}</p>
-              <p className="mt-4 text-sm font-semibold text-primary">{service.priceFrom}</p>
+              <p className="mt-4 text-sm font-semibold text-accent">{service.priceFrom}</p>
             </Card>
           </Link>
         );
@@ -32,7 +32,7 @@ export function ProcessSection() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {processSteps.map((step, index) => (
           <Card key={step}>
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">{index + 1}</span>
+            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-sm font-bold text-white">{index + 1}</span>
             <p className="mt-4 font-semibold">{step}</p>
           </Card>
         ))}
@@ -65,7 +65,7 @@ export function SlaMiniSection() {
             const TypedIcon = Icon as typeof FileCheck2;
             return (
               <Card key={title as string}>
-                <TypedIcon className="mb-4 h-7 w-7 text-primary" />
+                <TypedIcon className="mb-4 h-7 w-7 text-accent" />
                 <p className="font-semibold">{title as string}</p>
               </Card>
             );
@@ -136,10 +136,10 @@ export function CityGrid() {
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {cities.map((city) => (
         <Link key={city.slug} href={`/goroda/${city.slug}/`} className="group">
-          <Card className="h-full transition group-hover:border-primary">
+          <Card className="h-full transition group-hover:border-accent">
             <h3 className="text-xl font-semibold">{city.name}</h3>
             <p className="mt-2 text-sm text-muted">{city.address}</p>
-            <p className="mt-3 text-sm font-semibold text-primary">{city.phone}</p>
+            <p className="mt-3 text-sm font-semibold text-accent">{city.phone}</p>
           </Card>
         </Link>
       ))}

@@ -52,7 +52,7 @@ export default function HomePage() {
           {/* левая колонка */}
           <div>
             <div data-hero-animate="eyebrow">
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent backdrop-blur-sm">
                 Профессиональная клининговая компания для бизнеса
               </span>
             </div>
@@ -62,7 +62,7 @@ export default function HomePage() {
               className="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.5rem]"
             >
               Клининг для юридических лиц,{" "}
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <span className="text-primary">
                 который не нужно контролировать вручную
               </span>
             </h1>
@@ -106,8 +106,8 @@ export default function HomePage() {
             data-hero-animate="panel"
             className="rounded-2xl border border-white/10 bg-white/6 p-6 backdrop-blur-md"
           >
-            <div className="rounded-xl bg-primary/15 p-5">
-              <BadgeCheck className="h-10 w-10 text-primary" />
+            <div className="rounded-xl bg-accent/15 p-5">
+              <BadgeCheck className="h-10 w-10 text-accent" />
               <p className="mt-4 text-xl font-semibold text-white">Управляемая чистота вместо ручного контроля</p>
               <p className="mt-2 text-sm leading-7 text-white/60">
                 Смета, КП, договор, чек-листы, закреплённая команда, отдел контроля качества и документы для юрлиц.
@@ -119,7 +119,7 @@ export default function HomePage() {
                   key={item}
                   className="flex items-center gap-3 rounded-lg border border-white/8 bg-white/4 px-4 py-3 text-sm font-medium text-white/80"
                 >
-                  <span className="h-1.5 w-1.5 flex-none rounded-full bg-primary" />
+                  <span className="h-1.5 w-1.5 flex-none rounded-full bg-accent" />
                   {item}
                 </div>
               ))}
@@ -143,11 +143,11 @@ export default function HomePage() {
               alt="Профессиональный клининг производственного помещения"
               className="h-[420px] w-full object-cover lg:h-[520px]"
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/10" />
+            <div className="absolute inset-0 bg-accent/15" />
           </div>
           {/* текст справа */}
           <div data-animate-section>
-            <span className="text-xs font-semibold uppercase tracking-widest text-primary">Почему выбирают нас</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-accent">Почему выбирают нас</span>
             <h2 data-animate="card" className="mt-4 text-3xl font-bold leading-tight text-white sm:text-4xl">
               Контроль, прозрачность и результат — от заявки до акта
             </h2>
@@ -187,7 +187,7 @@ export default function HomePage() {
             const Icon = segment.icon;
             return (
               <Card key={segment.title} data-animate="card">
-                <Icon className="mb-4 h-7 w-7 text-primary" />
+                <Icon className="mb-4 h-7 w-7 text-accent" />
                 <h3 className="font-semibold">{segment.title}</h3>
               </Card>
             );

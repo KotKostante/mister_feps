@@ -115,7 +115,7 @@ a {
   z-index: 0;
   width: 46%;
   transform: skewX(-18deg) translateX(-120%);
-  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.18), hsl(var(--accent) / 0.20), transparent);
+  background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.20), hsl(var(--accent) / 0.22), transparent);
   opacity: 0;
   pointer-events: none;
 }
@@ -138,7 +138,7 @@ a {
 }
 
 .info-glint:hover .animated-number {
-  text-shadow: 0 0 18px hsl(var(--primary) / 0.22);
+  text-shadow: 0 0 18px hsl(var(--accent) / 0.30);
 }
 
 @keyframes info-glint-sweep {
@@ -203,17 +203,17 @@ a {
 }
 
 .btn-kinetic-primary {
-  box-shadow: 0 12px 28px hsl(var(--primary) / 0.22);
+  box-shadow: 0 12px 28px hsl(var(--accent) / 0.28);
 }
 
 .btn-kinetic-primary::before {
   background:
-    radial-gradient(circle at 22% 15%, hsl(var(--accent) / 0.42), transparent 34%),
-    linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    radial-gradient(circle at 22% 15%, hsl(var(--accent) / 0.55), transparent 34%),
+    linear-gradient(135deg, hsl(var(--accent)), hsl(196 100% 38%));
 }
 
 .btn-kinetic-primary:hover {
-  box-shadow: 0 18px 42px hsl(var(--primary) / 0.30);
+  box-shadow: 0 18px 42px hsl(var(--accent) / 0.38);
 }
 
 .btn-kinetic-primary:hover::before {
@@ -226,12 +226,12 @@ a {
 }
 
 .btn-kinetic-secondary:hover {
-  border-color: hsl(var(--primary) / 0.68);
+  border-color: hsl(var(--accent) / 0.68);
   box-shadow: 0 14px 36px hsl(var(--foreground) / 0.10);
 }
 
 .btn-kinetic-secondary::before {
-  background: linear-gradient(135deg, hsl(var(--primary) / 0.10), hsl(var(--accent) / 0.08));
+  background: linear-gradient(135deg, hsl(var(--accent) / 0.10), hsl(var(--accent) / 0.06));
 }
 
 .btn-kinetic-secondary:hover::before,
@@ -245,7 +245,7 @@ a {
 }
 
 .btn-kinetic-ghost::before {
-  background: hsl(var(--primary) / 0.08);
+  background: hsl(var(--accent) / 0.08);
 }
 
 @keyframes button-sheen {
@@ -285,7 +285,7 @@ html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="i
 
 [data-animate="card"]:hover {
   transform: translateY(-4px);
-  border-color: hsl(var(--primary) / 0.65);
+  border-color: hsl(var(--accent) / 0.65);
   box-shadow: 0 22px 70px hsl(var(--foreground) / 0.12);
 }
 
@@ -314,7 +314,7 @@ html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="i
   inset: -18% auto auto -12%;
   width: 220px;
   height: 220px;
-  background: radial-gradient(circle, hsl(var(--primary) / 0.18), transparent 68%);
+  background: radial-gradient(circle, hsl(var(--accent) / 0.18), transparent 68%);
 }
 
 .kinetic-panel::after {
@@ -338,7 +338,7 @@ html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="i
   position: absolute;
   inset: 0;
   width: 42%;
-  background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+  background: linear-gradient(90deg, transparent, hsl(var(--accent)), transparent);
   animation: scan-line 3.8s cubic-bezier(.2, .9, .2, 1) infinite;
 }
 
