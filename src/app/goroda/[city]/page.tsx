@@ -134,16 +134,14 @@ export default async function CityPage({ params }: Props) {
         </div>
       </section>
 
-      {/* хлебные крошки под героем */}
-      <Section className="pb-0 pt-4">
-        <Breadcrumbs items={[{ label: "Города", href: "/goroda/" }, { label: city.name, href: `/goroda/${city.slug}/` }]} />
-      </Section>
-
       {/* ══════════════════════════════════════════════════════
           FEATURE SPLIT
       ══════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden bg-background">
-        <div className="mx-auto grid w-full max-w-[1200px] px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-stretch lg:gap-16 lg:px-8 lg:py-24">
+        <div className="mx-auto grid w-full max-w-[1200px] px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8 lg:grid-cols-2 lg:items-stretch lg:gap-16 lg:px-8 lg:pb-24 lg:pt-10">
+          <div className="col-span-full mb-2">
+            <Breadcrumbs items={[{ label: "Города", href: "/goroda/" }, { label: city.name, href: `/goroda/${city.slug}/` }]} />
+          </div>
           <div className="relative overflow-hidden rounded-2xl">
             <img
               src="/foto1.png"
