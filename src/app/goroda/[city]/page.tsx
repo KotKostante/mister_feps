@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BadgeCheck, CheckCircle2, CreditCard, FileCheck2, Users } from "lucide-react";
+import { CleanWindowDemo } from "@/components/clean-window-demo";
 import { notFound } from "next/navigation";
 import { AnimatedNumber } from "@/components/animated-number";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -125,6 +126,9 @@ export default async function CityPage({ params }: Props) {
                   {item}
                 </div>
               ))}
+            </div>
+            <div className="mt-4">
+              <CleanWindowDemo />
             </div>
           </div>
         </div>

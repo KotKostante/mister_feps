@@ -120,10 +120,13 @@ export function CityGrid() {
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {cities.map((city) => (
         <Link key={city.slug} href={`/goroda/${city.slug}/`} className="group">
-          <Card className="h-full transition group-hover:border-accent">
+          <Card className="flex h-full flex-col transition group-hover:border-accent">
             <h3 className="text-xl font-semibold">{city.name}</h3>
             <p className="mt-2 text-sm text-muted">{city.address}</p>
             <p className="mt-3 text-sm font-semibold text-accent">{city.phone}</p>
+            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+              Подробнее →
+            </span>
           </Card>
         </Link>
       ))}
