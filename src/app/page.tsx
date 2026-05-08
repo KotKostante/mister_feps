@@ -38,6 +38,8 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#070a0d]/96 via-[#070a0d]/82 to-[#070a0d]/55" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#070a0d]/60 via-transparent to-transparent" />
+          {/* усиленное затемнение на мобайле для читаемости текста */}
+          <div className="absolute inset-0 bg-[#070a0d]/55 lg:hidden" />
         </div>
 
         {/* розовое свечение */}
