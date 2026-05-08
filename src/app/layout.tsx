@@ -14,7 +14,7 @@ import { AnimationLayer } from "@/components/animation-layer";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
-import { StickyMobileCta } from "@/components/sticky-mobile-cta";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { brand } from "@/data/site";
 import { absoluteUrl } from "@/lib/utils";
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Header />
           <main>{children}</main>
           <Footer />
-          <StickyMobileCta />
+
         </ThemeProvider>
       </body>
     </html>
