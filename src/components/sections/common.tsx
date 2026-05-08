@@ -12,7 +12,7 @@ export function ServicesGrid() {
         const Icon = service.icon;
         return (
           <Link key={service.slug} href={`/uslugi/${service.slug}/`} className="group rounded-xl">
-            <Card className="h-full transition group-hover:-translate-y-1 group-hover:border-primary">
+            <Card className="h-full transition group-hover:-translate-y-1 group-hover:border-accent">
               <Icon className="mb-5 h-8 w-8 text-accent" />
               <h3 className="text-xl font-semibold">{service.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted">{service.description}</p>

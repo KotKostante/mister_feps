@@ -22,7 +22,7 @@ export function ThemeSwitcher() {
             type="button"
             className={cn(
               "focus-ring flex h-9 w-9 items-center justify-center rounded-md text-muted transition hover:text-foreground",
-              mounted && theme === option.value && "bg-primary text-primary-foreground hover:text-primary-foreground"
+              mounted && theme === option.value && "bg-accent text-white hover:text-white"
             )}
             onClick={() => setTheme(option.value)}
             title={option.label}
