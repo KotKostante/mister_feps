@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
-import { absoluteUrl } from "@/lib/utils";
+import { absoluteUrl, cn } from "@/lib/utils";
 
 export type Crumb = {
   label: string;
   href: string;
 };
 
-export function Breadcrumbs({ items }: { items: Crumb[] }) {
+/** default — светлая страница; onHeroDark — поверх фото с тёмным градиентом как MarketingHero */
+export function Breadcrumbs({ items, variant = "default" }: { items: Crumb[]; variant?: "default" | "onHeroDark" }) {
   const allItems = [{ label: "Главная", href: "/" }, ...items];
   const schema = {
     "@context": "https://schema.org",
@@ -23,12 +24,24 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <>
       <JsonLd data={schema} />
-      <nav className="mb-8 text-sm text-muted" aria-label="Навигационная цепочка">
+      <nav
+        className={cn(
+          "mb-8 text-sm",
+          variant === "onHeroDark"
+            ? "text-hero-readable-soft text-white/55 [&_a]:text-white/80 [&_a:hover]:text-white [&_span:not(.crumb-sep)]:text-white"
+            : "text-muted"
+        )}
+        aria-label="Навигационная цепочка"
+      >
         <ol className="flex flex-wrap gap-2">
           {allItems.map((item, index) => (
             <li key={item.href} className="flex items-center gap-2">
-              {index > 0 ? <span>/</span> : null}
-              {index === allItems.length - 1 ? <span className="text-foreground">{item.label}</span> : <Link href={item.href}>{item.label}</Link>}
+              {index > 0 ? <span className="crumb-sep opacity-70">/</span> : null}
+              {index === allItems.length - 1 ? (
+                <span className={variant === "onHeroDark" ? "text-white" : "text-foreground"}>{item.label}</span>
+              ) : (
+                <Link href={item.href}>{item.label}</Link>
+              )}
             </li>
           ))}
         </ol>

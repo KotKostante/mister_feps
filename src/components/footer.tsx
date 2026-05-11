@@ -36,11 +36,15 @@ export function Footer() {
           </div>
         </div>
         <div>
-          <p className="mb-4 font-semibold">Документы</p>
+          <p className="mb-4 font-semibold">Инфо</p>
           <div className="grid gap-2 text-sm text-muted">
             <Link href="/prices/">Цены</Link>
             <Link href="/sla/">SLA</Link>
             <Link href="/cases/">Кейсы</Link>
+            <Link href="/reviews/">Отзывы</Link>
+            <Link href="/faq/">FAQ</Link>
+            <Link href="/blog/">Блог</Link>
+            <Link href="/about/">О компании</Link>
             <Link href="/privacy/">Политика конфиденциальности</Link>
             <Link href="/terms/">Условия</Link>
           </div>

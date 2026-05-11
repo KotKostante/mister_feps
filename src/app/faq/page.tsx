@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { JsonLd } from "@/components/json-ld";
-import { FaqSection, FinalCta } from "@/components/sections/common";
+import { FaqFullClient } from "@/components/faq-full-client";
+import { FinalCta } from "@/components/sections/common";
 import { Section, SectionHeading } from "@/components/ui";
-import { faqs } from "@/data/site";
+import { JsonLd } from "@/components/json-ld";
+import { faqsCategorized } from "@/data/site";
 import { faqSchema } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/utils";
 
@@ -14,14 +15,18 @@ export const metadata: Metadata = {
 };
 
 export default function FaqPage() {
+  const forLd = faqsCategorized.map(({ question, answer }) => ({ question, answer }));
   return (
     <>
-      <JsonLd data={faqSchema(faqs)} />
+      <JsonLd data={faqSchema(forLd)} />
       <Section>
         <Breadcrumbs items={[{ label: "FAQ", href: "/faq/" }]} />
-        <SectionHeading title="Частые вопросы" text="Ответы для АХО, закупок, управляющих объектами и финансового блока." />
+        <SectionHeading title="Частые вопросы" text="Поиск по тексту и категории: договор, услуги, персонал, качество, цены." />
+        <FaqFullClient />
       </Section>
-      <FaqSection />
+      <Section className="bg-surface">
+        <SectionHeading title="Не нашли ответ?" text="Напишите параметры объекта — менеджер ответит и подготовит расчёт." />
+      </Section>
       <FinalCta />
     </>
   );

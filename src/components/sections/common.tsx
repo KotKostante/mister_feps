@@ -1,35 +1,59 @@
-import { CheckCircle2, ExternalLink, FileCheck2, ShieldCheck, Star } from "lucide-react";
+import { CheckCircle2, ChevronDown, ExternalLink, FileCheck2, Phone, Quote, ShieldCheck, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatedNumber } from "@/components/animated-number";
 import { LeadForm } from "@/components/lead-form";
-import { Badge, ButtonLink, Card, Section, SectionHeading } from "@/components/ui";
-import { advantages, cases, cities, faqs, processSteps, reviewPlatforms, reviews, services } from "@/data/site";
+import { Badge, ButtonLink, Card, NumberBadge, NumberedStepCard, Section, SectionHeading } from "@/components/ui";
+import type { City } from "@/data/site";
+import { advantages, brand, cases, cities, faqs, processSteps, reviewPlatforms, reviews, services } from "@/data/site";
+import { YandexMapEmbed } from "@/components/yandex-map-embed";
+import { cityYandexMapsUrl } from "@/lib/city-map";
+import { cn, phoneHref } from "@/lib/utils";
 
 export { ServicesGrid } from "@/components/services-grid";
 
-export function ProcessSection() {
+export function ProcessSection({
+  title = "Как запускаем уборку на объекте",
+  intro = "Показываем процесс до договора: кто выходит, как считается цена, кто принимает работы и как закрываются замечания.",
+  sectionId
+}: {
+  title?: string;
+  intro?: string;
+  /** Якорь для оглавления на длинных страницах услуги */
+  sectionId?: string;
+}) {
   return (
-    <Section>
-      <SectionHeading title="Как запускаем уборку на объекте" text="Показываем процесс до договора: кто выходит, как считается цена, кто принимает работы и как закрываются замечания." />
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <Section id={sectionId}>
+      <SectionHeading title={title} text={intro} />
+      {/* Таймлайн: номера на вертикальной линии — понятный «путь» клиента (паттерн B2B how-it-works) */}
+      <div className="mx-auto max-w-3xl">
         {processSteps.map((step, index) => (
-          <Card key={step.title}>
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-sm font-bold text-white">{index + 1}</span>
-            <p className="mt-4 font-semibold">{step.title}</p>
-            <p className="mt-2 text-sm text-muted-foreground">{step.desc}</p>
-          </Card>
+          <div key={step.title} data-animate="item" className="flex gap-5 items-stretch">
+            <div className="flex w-12 shrink-0 flex-col items-center self-stretch">
+              {/* Явный акцентный фон + белые цифры — на светлом без bg-surface не «пропадают» */}
+              <NumberBadge className="relative z-10 shadow-md ring-4 ring-background">{index + 1}</NumberBadge>
+              {index < processSteps.length - 1 ? (
+                <div
+                  className="mx-auto mt-3 w-[3px] flex-1 min-h-[3rem] rounded-full bg-accent/65"
+                  aria-hidden
+                />
+              ) : null}
+            </div>
+            <div className={`min-w-0 flex-1 pt-0.5 ${index < processSteps.length - 1 ? "pb-12" : ""}`}>
+              <h3 className="text-lg font-semibold leading-snug">{step.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{step.desc}</p>
+            </div>
+          </div>
         ))}
       </div>
     </Section>
   );
 }
 
-export function SlaMiniSection() {
+export function SlaMiniSection({ sectionId }: { sectionId?: string }) {
   return (
-    <Section className="bg-surface">
+    <Section id={sectionId} className="bg-surface">
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <div>
+        <div data-animate="heading">
           <Badge>SLA и контроль качества</Badge>
           <h2 className="mt-5 text-3xl font-semibold leading-tight sm:text-4xl">Вы не контролируете уборщиков вручную</h2>
           <p className="mt-4 text-lg leading-8 text-muted">
@@ -60,25 +84,115 @@ export function SlaMiniSection() {
   );
 }
 
-export function CasesSection() {
-  const metrics = [
-    { value: 36000, suffix: " м2" },
-    { value: 1350, suffix: " уборок/мес" },
-    { value: 15400, suffix: " м2" }
-  ];
+export function CasesSection({
+  title = "Кейсы с цифрами",
+  intro = "Федеральные клиенты, реальные площади, постоянные бригады — цифры, а не обещания.",
+  moreHref = "/cases/",
+  moreLabel = "Все кейсы",
+  showMoreButton = true,
+  casesList = cases,
+  sectionId,
+  hideHeading = false
+}: {
+  title?: string;
+  intro?: string;
+  moreHref?: string;
+  moreLabel?: string;
+  showMoreButton?: boolean;
+  casesList?: typeof cases;
+  sectionId?: string;
+  hideHeading?: boolean;
+}) {
+  // При 4 карточках и колонках «3» получается ряд 3+1 — переключаем на 2×2
+  const gridCols =
+    casesList.length === 4 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3";
 
   return (
-    <Section>
-      <SectionHeading title="Кейсы с цифрами" text="Федеральные клиенты, реальные площади, постоянные бригады — цифры, а не обещания." />
-      <div className="grid gap-4 lg:grid-cols-3">
-        {cases.map((item, index) => (
-          <Card key={item.company}>
-            <p className="text-sm font-semibold text-primary">{item.company}</p>
-            <h3 className="mt-3 text-xl font-semibold">{item.title}</h3>
-            <p className="mt-4 text-3xl font-bold">
-              <AnimatedNumber value={metrics[index]?.value ?? 0} suffix={metrics[index]?.suffix ?? ""} />
-            </p>
-            <p className="mt-3 text-sm leading-6 text-muted">{item.result}</p>
+    <Section id={sectionId}>
+      {!hideHeading ? <SectionHeading title={title} text={intro} /> : null}
+      <div className={cn("grid gap-4", gridCols)}>
+        {casesList.map((item) => {
+          const city = cities.find((c) => c.slug === item.citySlug)?.name ?? "";
+          return (
+            <Link key={item.slug} href={`/cases/${item.slug}/`} className="group block h-full">
+              <Card className="flex h-full flex-col transition group-hover:border-accent/40">
+                <p className="text-sm font-semibold text-primary">{item.company}</p>
+                <h3 className="mt-3 text-xl font-semibold">{item.title}</h3>
+                <p className="mt-4 text-2xl font-bold text-foreground">{item.metric}</p>
+                <p className="mt-1 text-xs text-muted">{city}</p>
+                <p className="mt-3 flex-1 text-sm leading-6 text-muted">{item.result}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+                  Подробнее о кейсе →
+                </span>
+              </Card>
+            </Link>
+          );
+        })}
+      </div>
+      {showMoreButton && moreHref ? (
+        <div className="mt-10 flex justify-center">
+          <ButtonLink href={moreHref} variant="secondary">
+            {moreLabel}
+          </ButtonLink>
+        </div>
+      ) : null}
+    </Section>
+  );
+}
+
+export function FaqSection({
+  items = faqs,
+  moreHref,
+  moreLabel = "Все вопросы и ответы",
+  sectionId
+}: {
+  items?: typeof faqs;
+  moreHref?: string;
+  moreLabel?: string;
+  sectionId?: string;
+}) {
+  return (
+    <Section id={sectionId} className="bg-surface">
+      <SectionHeading title="Вопросы перед договором" text="Коротко отвечаем на то, что обычно спрашивают АХО, закупки и управляющие объектами." />
+      <div className="divide-y divide-border rounded-2xl border border-border bg-background shadow-soft">
+        {items.map((item) => (
+          <details key={item.question} data-animate="item" className="group px-4 open:bg-surface/60 sm:px-6">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-left text-lg font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+              {item.question}
+              <ChevronDown className="h-5 w-5 shrink-0 text-muted transition-transform duration-200 group-open:rotate-180" aria-hidden />
+            </summary>
+            <p className="border-t border-border/60 pb-5 pt-3 text-base leading-7 text-muted">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+      {moreHref ? (
+        <div className="mt-10 flex justify-center">
+          <ButtonLink href={moreHref} variant="secondary">
+            {moreLabel}
+          </ButtonLink>
+        </div>
+      ) : null}
+    </Section>
+  );
+}
+
+/** Хаб города: зона покрытия и выезд */
+export function CityCoverageSection({ city }: { city: City }) {
+  return (
+    <Section className="bg-surface">
+      <SectionHeading
+        title={`Покрытие и выезд в ${city.prepositional}`}
+        text={`Работаем по городу и при необходимости в области (${city.area}). Районы и пригород согласуем при расчёте — учитываем логистику и время допуска на объект.`}
+      />
+      <div className="grid gap-4 md:grid-cols-3">
+        {[
+          ["Центр и деловые районы", "Выезд в день обращения по согласованию"],
+          ["Индустриальные зоны", "Уборка складов и производств без остановки процессов"],
+          ["Пригород", "Логистика и состав бригады — в смете заранее"]
+        ].map(([t, d]) => (
+          <Card key={t} className="shadow-none">
+            <p className="font-semibold">{t}</p>
+            <p className="mt-2 text-sm text-muted">{d}</p>
           </Card>
         ))}
       </div>
@@ -86,18 +200,62 @@ export function CasesSection() {
   );
 }
 
-export function FaqSection({ items = faqs }: { items?: typeof faqs }) {
+/** Хаб города: контакты и карта перед формой */
+export function CityContactsSection({ city }: { city: City }) {
+  return (
+    <Section>
+      <SectionHeading title={`Контакты в ${city.prepositional}`} text="Локальный телефон и адрес офиса — звоните или оставьте заявку на расчёт." />
+      <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+        <Card className="shadow-none">
+          <p className="text-sm font-semibold text-primary">Телефон</p>
+          <a href={phoneHref(city.phone)} className="mt-2 block text-2xl font-bold">
+            {city.phone}
+          </a>
+          <p className="mt-4 text-sm text-muted">{city.address}</p>
+          <p className="mt-1 text-xs text-muted">{city.area}</p>
+        </Card>
+        <div className="relative flex min-h-[220px] flex-col overflow-hidden rounded-2xl border border-border bg-muted/30">
+          <YandexMapEmbed variant="city" city={city} title={`Офис в ${city.name}`} mapHeightClass="min-h-[220px] flex-1 w-full" />
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border bg-background/95 px-3 py-2">
+            <p className="text-xs text-muted">Ориентир по городу — точку выезда уточняет менеджер</p>
+            <a
+              href={cityYandexMapsUrl(city)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-semibold text-accent hover:underline"
+            >
+              Открыть в Яндекс.Картах →
+            </a>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+/** Комбо: ссылки на другие услуги в том же городе */
+export function ComboOtherServices({ citySlug, currentSlug }: { citySlug: string; currentSlug: string }) {
+  const others = services.filter((s) => s.slug !== currentSlug);
+  const visible = others.slice(0, 16);
   return (
     <Section className="bg-surface">
-      <SectionHeading title="Вопросы перед договором" text="Коротко отвечаем на то, что обычно спрашивают АХО, закупки и управляющие объектами." />
-      <div className="grid gap-4">
-        {items.map((item) => (
-          <Card key={item.question} className="shadow-none">
-            <h3 className="text-lg font-semibold">{item.question}</h3>
-            <p className="mt-2 leading-7 text-muted">{item.answer}</p>
-          </Card>
+      <SectionHeading title="Другие услуги в этом городе" text="Отдельный расчёт и регламент под каждый тип объекта." />
+      <div className="flex flex-wrap gap-2">
+        {visible.map((s) => (
+          <Link
+            key={s.slug}
+            href={`/goroda/${citySlug}/${s.slug}/`}
+            className="rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium transition hover:border-accent"
+          >
+            {s.shortTitle || s.title}
+          </Link>
         ))}
       </div>
+      <p className="mt-6 text-center text-sm text-muted">
+        <Link href={`/goroda/${citySlug}/`} className="font-semibold text-accent">
+          Все услуги в городе →
+        </Link>
+      </p>
     </Section>
   );
 }
@@ -105,11 +263,8 @@ export function FaqSection({ items = faqs }: { items?: typeof faqs }) {
 export function AdvantagesList() {
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      {advantages.map((item) => (
-        <div key={item} className="flex gap-3 rounded-xl border border-border bg-surface p-4">
-          <CheckCircle2 className="mt-1 h-5 w-5 flex-none text-success" />
-          <p className="text-sm leading-6 text-muted">{item}</p>
-        </div>
+      {advantages.map((item, index) => (
+        <NumberedStepCard key={item} index={index + 1} title={item} />
       ))}
     </div>
   );
@@ -135,9 +290,11 @@ export function CityGrid() {
 }
 
 export function ReviewsSection() {
+  const [featured, ...restReviews] = reviews;
+
   return (
     <Section className="bg-surface">
-      <div className="mb-10 flex flex-col items-center text-center">
+      <div data-animate="heading" className="mb-10 flex flex-col items-center text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-accent">Нам доверяют</p>
         <div className="mt-3 flex items-end gap-3">
           <span className="text-6xl font-bold leading-none">4.9</span>
@@ -152,8 +309,26 @@ export function ReviewsSection() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        {reviews.map((r) => (
+      {featured ? (
+        <Card className="mb-6 border-accent/35 bg-accent/[0.06] shadow-none md:p-8">
+          <Quote className="h-10 w-10 text-accent/50" aria-hidden />
+          <div className="mt-4 flex gap-0.5">
+            {Array.from({ length: featured.rating }).map((_, i) => (
+              <Star key={i} className="h-5 w-5 fill-accent text-accent" />
+            ))}
+          </div>
+          <blockquote className="mt-4 text-lg font-medium leading-relaxed text-foreground md:text-xl">
+            «{featured.text}»
+          </blockquote>
+          <footer className="mt-6 border-t border-border/80 pt-6">
+            <p className="font-semibold">{featured.name}</p>
+            <p className="text-sm text-muted">{featured.role}</p>
+          </footer>
+        </Card>
+      ) : null}
+
+      <div className="grid gap-4 md:grid-cols-2">
+        {restReviews.map((r) => (
           <Card key={r.name}>
             <div className="flex gap-0.5">
               {Array.from({ length: r.rating }).map((_, i) => (
@@ -189,8 +364,10 @@ export function ReviewsSection() {
 }
 
 export function FinalCta({ city, service }: { city?: string; service?: string }) {
+  const tel = phoneHref(brand.mainPhone);
+
   return (
-    <Section>
+    <Section id="lead-block">
       <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-stretch">
         <div className="relative min-h-[320px] overflow-hidden rounded-2xl lg:min-h-0">
           <Image
@@ -207,9 +384,38 @@ export function FinalCta({ city, service }: { city?: string; service?: string })
           <p className="mt-4 text-lg leading-8 text-muted">
             Менеджер уточнит задачу, предложит схему уборки и подготовит расчет без скрытых доплат. На объект можно выехать в день обращения.
           </p>
-          <LeadForm city={city} service={service} />
+
+          {/* Полоса «позвонить» + форма — паттерн B2B contact / request quote */}
+          <div className="mt-8 space-y-5">
+            <div className="flex flex-col gap-4 rounded-xl border border-accent/30 bg-accent/[0.07] p-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent text-white">
+                  <Phone className="h-6 w-6" aria-hidden />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Или свяжитесь напрямую</p>
+                  <a href={tel} className="mt-0.5 block text-2xl font-bold tracking-tight text-foreground hover:text-accent">
+                    {brand.mainPhone}
+                  </a>
+                  <p className="mt-1 text-xs text-muted">Ответим по объекту, графику и договору — пн–пт, рабочее время</p>
+                </div>
+              </div>
+              <a
+                href={tel}
+                className="btn-kinetic focus-ring inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg border border-border bg-surface px-6 text-base font-semibold transition hover:border-accent/50"
+              >
+                Позвонить
+              </a>
+            </div>
+
+            <LeadForm city={city} service={service} />
+          </div>
         </div>
       </div>
     </Section>
   );
 }
+
+export { MarketingHero, HeroRightProduct, HeroRightCityCard, HeroTrustStats } from "./marketing-hero";
+export { TrustLogosStrip } from "./trust-logos-strip";
+export { WhyUsSplit } from "./why-us-split";

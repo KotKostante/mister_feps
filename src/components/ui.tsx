@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
@@ -84,10 +85,92 @@ export function SectionHeading({
   text?: string;
 }) {
   return (
-    <div className="mb-10 max-w-3xl">
+    <div className="mb-10 max-w-3xl" data-animate="heading">
       {eyebrow ? <p className="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-primary">{eyebrow}</p> : null}
       <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">{title}</h2>
       {text ? <p className="mt-4 text-lg leading-8 text-muted">{text}</p> : null}
     </div>
+  );
+}
+
+/** Квадратный номер как в блоке «Как запускаем уборку» / ProcessSection */
+export function NumberBadge({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <span
+      className={cn(
+        "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-sm font-bold text-white",
+        className
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
+/**
+ * Карточка с номером + заголовок + подпись — единый вид с ProcessSection на главной.
+ * Без `description` — только акцентный текст (пункты «что входит», факторы).
+ */
+export function NumberedStepCard({
+  index,
+  title,
+  description,
+  className
+}: {
+  index: number;
+  title: string;
+  description?: string;
+  className?: string;
+}) {
+  return (
+    <Card className={cn("transition hover:border-accent/40", className)}>
+      <NumberBadge>{index}</NumberBadge>
+      <p className={cn("mt-4 font-semibold", description ? "" : "text-sm leading-snug")}>{title}</p>
+      {description ? <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p> : null}
+    </Card>
+  );
+}
+
+/** Карточка «что входит» с иконкой вместо номера — страница услуги (напр. уборка офисов) */
+export function IconStepCard({
+  icon: Icon,
+  title,
+  description,
+  className
+}: {
+  icon: LucideIcon;
+  title: string;
+  description?: string;
+  className?: string;
+}) {
+  return (
+    <Card className={cn("transition hover:border-accent/40", className)}>
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-white">
+        <Icon className="h-5 w-5" aria-hidden />
+      </span>
+      <p className={cn("mt-4 font-semibold", description ? "" : "text-sm leading-snug")}>{title}</p>
+      {description ? <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p> : null}
+    </Card>
+  );
+}
+
+/** «Было / Стало» с тем же номером в углу — блок «Результат для клиента» */
+export function NumberedDeltaCard({
+  index,
+  before,
+  after,
+  className
+}: {
+  index: number;
+  before: string;
+  after: string;
+  className?: string;
+}) {
+  return (
+    <Card className={cn("transition hover:border-accent/40", className)}>
+      <NumberBadge>{index}</NumberBadge>
+      <p className="mt-4 text-sm font-semibold leading-snug text-muted-foreground">{before}</p>
+      <p className="mt-3 font-semibold leading-snug text-foreground">{after}</p>
+    </Card>
   );
 }

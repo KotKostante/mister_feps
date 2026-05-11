@@ -270,13 +270,15 @@ a {
 [data-hero-animate],
 [data-animate-section],
 [data-animate="card"],
-[data-animate="item"] {
+[data-animate="item"],
+[data-animate="heading"] {
   will-change: transform, opacity;
 }
 
 html.motion-enabled:not(.motion-reduced) [data-hero-animate]:not(.motion-ready),
 html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="card"]:not(.motion-ready),
-html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="item"]:not(.motion-ready) {
+html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="item"]:not(.motion-ready),
+html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="heading"]:not(.motion-ready) {
   opacity: 0;
 }
 
@@ -436,6 +438,19 @@ html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="i
   50%       { opacity: 1;   transform: scale(1.2); }
 }
 
+/* Белый текст поверх фото героя — без «мыла»: тень + контраст с подложкой в marketing-hero и uslugi hero */
+.text-hero-readable {
+  text-shadow:
+    0 0.08em 0.28em rgba(0, 0, 0, 0.78),
+    0 0.02em 0.08em rgba(0, 0, 0, 0.98),
+    0 0 1px rgba(0, 0, 0, 0.95);
+}
+.text-hero-readable-soft {
+  text-shadow:
+    0 0.06em 0.22em rgba(0, 0, 0, 0.62),
+    0 0.02em 0.06em rgba(0, 0, 0, 0.88);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -450,6 +465,7 @@ html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="i
   [data-animate-section],
   [data-animate="card"],
   [data-animate="item"],
+  [data-animate="heading"],
   .btn-kinetic,
   .info-glint {
     opacity: 1 !important;

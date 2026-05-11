@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Breadcrumbs } from "@/components/breadcrumbs";
-import { CasesSection, FinalCta } from "@/components/sections/common";
-import { Section, SectionHeading } from "@/components/ui";
+import { CasesIndexClient } from "@/components/cases-index-client";
+import { FinalCta } from "@/components/sections/common";
 import { absoluteUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -13,11 +12,7 @@ export const metadata: Metadata = {
 export default function CasesPage() {
   return (
     <>
-      <Section>
-        <Breadcrumbs items={[{ label: "Кейсы", href: "/cases/" }]} />
-        <SectionHeading title="Кейсы с цифрами" text="Показываем масштаб и управляемость работ: площади, количество клинеров, мобильные бригады и регулярность." />
-      </Section>
-      <CasesSection />
+      <CasesIndexClient />
       <FinalCta />
     </>
   );

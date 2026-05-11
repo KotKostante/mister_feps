@@ -1,6 +1,7 @@
 "use client";
 
 import anime from "animejs";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 function reducedMotion() {
@@ -26,6 +27,8 @@ function completeCounters() {
 }
 
 export function AnimationLayer() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const root = document.documentElement;
 
@@ -104,17 +107,19 @@ export function AnimationLayer() {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const section = entry.target;
-          const children = Array.from(section.querySelectorAll("[data-animate='card'], [data-animate='item']"));
+          const children = Array.from(
+            section.querySelectorAll("[data-animate='card'], [data-animate='item'], [data-animate='heading']")
+          );
           section.classList.add("motion-ready");
           setReady(children);
 
           anime({
             targets: children.length ? children : section,
-            translateY: [24, 0],
+            translateY: [18, 0],
             opacity: [0, 1],
             easing: "cubicBezier(.18,.84,.32,1)",
-            duration: 520,
-            delay: anime.stagger(85)
+            duration: 500,
+            delay: anime.stagger(72)
           });
 
           revealObserver.unobserve(section);
@@ -164,7 +169,9 @@ export function AnimationLayer() {
       anime.remove("[data-float]");
       root.classList.remove("motion-enabled");
     };
-  }, []);
+    /* При клиентском переходе (Next.js Link) DOM страницы новый, а старый эффект уже отработал —
+     * без повторного запуска блоки остаются с opacity:0 по globals.css. pathname сбрасывает анимации. */
+  }, [pathname]);
 
   return null;
 }

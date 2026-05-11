@@ -1,13 +1,14 @@
 "use client";
 
 import { Calculator, CheckCircle2, Clock3, UsersRound } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { DemoObjectTypeId } from "@/lib/pricing-demo-lock";
 
 const objectTypes = [
   { id: "office", label: "Офис", rate: 46, teamBase: 2 },
   { id: "warehouse", label: "Склад", rate: 45, teamBase: 3 },
   { id: "production", label: "Производство", rate: 120, teamBase: 4 }
-] as const;
+] as const satisfies readonly { id: DemoObjectTypeId; label: string; rate: number; teamBase: number }[];
 
 const schedules = [
   { id: "once", label: "Разово", multiplier: 1, note: "1 выезд" },
@@ -19,10 +20,24 @@ function formatRub(value: number) {
   return Math.round(value).toLocaleString("ru-RU").replace(/\u00a0/g, " ");
 }
 
-export function CleanWindowDemo() {
+export function CleanWindowDemo({
+  lockObjectType,
+  hintText
+}: {
+  /** Зафиксировать тип объекта и ставку (страница конкретной услуги) */
+  lockObjectType?: DemoObjectTypeId;
+  /** Подсказка под заголовком вместо стандартной */
+  hintText?: string;
+} = {}) {
   const [area, setArea] = useState(1200);
-  const [objectType, setObjectType] = useState<(typeof objectTypes)[number]["id"]>("office");
+  const [objectType, setObjectType] = useState<DemoObjectTypeId>(lockObjectType ?? "office");
   const [schedule, setSchedule] = useState<(typeof schedules)[number]["id"]>("weekly");
+
+  useEffect(() => {
+    if (lockObjectType) setObjectType(lockObjectType);
+  }, [lockObjectType]);
+
+  const locked = Boolean(lockObjectType);
 
   const result = useMemo(() => {
     const type = objectTypes.find((item) => item.id === objectType) ?? objectTypes[0];
@@ -42,7 +57,10 @@ export function CleanWindowDemo() {
         </span>
         <div>
           <p className="text-sm font-semibold text-accent">Быстрый расчет объекта</p>
-          <p className="text-xs leading-5 text-muted">Поиграйте с площадью и графиком. Точная смета фиксируется после осмотра.</p>
+          <p className="text-xs leading-5 text-muted">
+            {hintText ??
+              "Поиграйте с площадью и графиком. Точная смета фиксируется после осмотра."}
+          </p>
         </div>
       </div>
 
@@ -63,24 +81,35 @@ export function CleanWindowDemo() {
           />
         </label>
 
-        <div className="grid gap-2">
-          <p className="text-sm font-semibold">Тип объекта</p>
-          <div className="grid grid-cols-3 gap-2">
-            {objectTypes.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={[
-                  "btn-kinetic rounded-lg border px-2 py-2 text-xs font-semibold",
-                  objectType === item.id ? "border-accent bg-accent text-white" : "border-border bg-background text-muted"
-                ].join(" ")}
-                onClick={() => setObjectType(item.id)}
-              >
-                {item.label}
-              </button>
-            ))}
+        {locked ? (
+          <p className="rounded-lg border border-accent/30 bg-accent/5 px-3 py-2 text-xs font-medium text-muted">
+            Тип объекта:{" "}
+            <span className="font-semibold text-foreground">
+              {objectTypes.find((t) => t.id === objectType)?.label}
+            </span>
+            {" · "}
+            ориентир {objectTypes.find((t) => t.id === objectType)?.rate} руб/м²
+          </p>
+        ) : (
+          <div className="grid gap-2">
+            <p className="text-sm font-semibold">Тип объекта</p>
+            <div className="grid grid-cols-3 gap-2">
+              {objectTypes.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={[
+                    "btn-kinetic rounded-lg border px-2 py-2 text-xs font-semibold",
+                    objectType === item.id ? "border-accent bg-accent text-white" : "border-border bg-background text-muted"
+                  ].join(" ")}
+                  onClick={() => setObjectType(item.id)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="grid gap-2">
           <p className="text-sm font-semibold">График</p>
