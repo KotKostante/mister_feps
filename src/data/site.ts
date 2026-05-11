@@ -34,6 +34,8 @@ import {
   Wind,
 } from "lucide-react";
 
+import { siteUrl } from "@/lib/utils";
+
 export type City = {
   slug: string;
   name: string;
@@ -79,7 +81,7 @@ export const brand = {
   legalName: "ИП Зубкова",
   email: "info@mister-fapc.com",
   mainPhone: "+7 (343) 357-91-21",
-  domain: "https://mister-fapc.ru"
+  domain: siteUrl
 };
 
 export const trustStats = [

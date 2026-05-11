@@ -1,7 +1,9 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-export const siteUrl = "https://mister-fapc.ru";
+/** Публичный URL сайта (canonical, sitemap). На Vercel: Settings → Environment Variables → NEXT_PUBLIC_SITE_URL */
+const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+export const siteUrl = fromEnv ? fromEnv.replace(/\/+$/, "") : "https://mister-fapc.ru";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
