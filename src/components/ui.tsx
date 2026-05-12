@@ -87,8 +87,8 @@ export function SectionHeading({
   return (
     <div className="mb-10 max-w-3xl" data-animate="heading">
       {eyebrow ? <p className="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-primary">{eyebrow}</p> : null}
-      <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">{title}</h2>
-      {text ? <p className="mt-4 text-lg leading-8 text-muted">{text}</p> : null}
+      <h2 className="text-section-title text-3xl font-bold leading-tight tracking-tight sm:text-4xl">{title}</h2>
+      {text ? <p className="mt-4 text-lg font-medium leading-8 text-muted">{text}</p> : null}
     </div>
   );
 }
@@ -126,7 +126,7 @@ export function NumberedStepCard({
     <Card className={cn("transition hover:border-accent/40", className)}>
       <NumberBadge>{index}</NumberBadge>
       <p className={cn("mt-4 font-semibold", description ? "" : "text-sm leading-snug")}>{title}</p>
-      {description ? <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p> : null}
+      {description ? <p className="mt-2 text-sm leading-6 text-muted">{description}</p> : null}
     </Card>
   );
 }
@@ -149,7 +149,7 @@ export function IconStepCard({
         <Icon className="h-5 w-5" aria-hidden />
       </span>
       <p className={cn("mt-4 font-semibold", description ? "" : "text-sm leading-snug")}>{title}</p>
-      {description ? <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p> : null}
+      {description ? <p className="mt-2 text-sm leading-6 text-muted">{description}</p> : null}
     </Card>
   );
 }
@@ -169,7 +169,7 @@ export function NumberedDeltaCard({
   return (
     <Card className={cn("transition hover:border-accent/40", className)}>
       <NumberBadge>{index}</NumberBadge>
-      <p className="mt-4 text-sm font-semibold leading-snug text-muted-foreground">{before}</p>
+      <p className="mt-4 text-sm font-semibold leading-snug text-muted">{before}</p>
       <p className="mt-3 font-semibold leading-snug text-foreground">{after}</p>
     </Card>
   );

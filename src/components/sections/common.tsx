@@ -39,8 +39,8 @@ export function ProcessSection({
               ) : null}
             </div>
             <div className={`min-w-0 flex-1 pt-0.5 ${index < processSteps.length - 1 ? "pb-12" : ""}`}>
-              <h3 className="text-lg font-semibold leading-snug">{step.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{step.desc}</p>
+              <h3 className="text-lg font-bold leading-snug text-foreground">{step.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted">{step.desc}</p>
             </div>
           </div>
         ))}
@@ -55,8 +55,8 @@ export function SlaMiniSection({ sectionId }: { sectionId?: string }) {
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div data-animate="heading">
           <Badge>SLA и контроль качества</Badge>
-          <h2 className="mt-5 text-3xl font-semibold leading-tight sm:text-4xl">Вы не контролируете уборщиков вручную</h2>
-          <p className="mt-4 text-lg leading-8 text-muted">
+          <h2 className="text-section-title mt-5 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">Вы не контролируете уборщиков вручную</h2>
+          <p className="mt-4 text-lg font-medium leading-8 text-muted">
             За объектом закрепляются бригадир, менеджер и руководитель. Замечания фиксируются, закрываются и возвращаются в регламент.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -120,7 +120,7 @@ export function CasesSection({
                 <h3 className="mt-3 text-xl font-semibold">{item.title}</h3>
                 <p className="mt-4 text-2xl font-bold text-foreground">{item.metric}</p>
                 <p className="mt-1 text-xs text-muted">{city}</p>
-                <p className="mt-3 flex-1 text-sm leading-6 text-muted">{item.result}</p>
+                <p className="mt-3 flex-1 text-sm font-medium leading-6 text-muted">{item.result}</p>
                 <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
                   Подробнее о кейсе →
                 </span>
@@ -161,7 +161,7 @@ export function FaqSection({
               {item.question}
               <ChevronDown className="h-5 w-5 shrink-0 text-muted transition-transform duration-200 group-open:rotate-180" aria-hidden />
             </summary>
-            <p className="border-t border-border/60 pb-5 pt-3 text-base leading-7 text-muted">{item.answer}</p>
+            <p className="border-t border-border/60 pb-5 pt-3 text-base font-medium leading-7 text-muted">{item.answer}</p>
           </details>
         ))}
       </div>
@@ -276,8 +276,8 @@ export function CityGrid() {
       {cities.map((city) => (
         <Link key={city.slug} href={`/goroda/${city.slug}/`} className="group">
           <Card className="flex h-full flex-col transition group-hover:border-accent">
-            <h3 className="text-xl font-semibold">{city.name}</h3>
-            <p className="mt-2 text-sm text-muted">{city.address}</p>
+            <h3 className="text-xl font-bold tracking-tight text-foreground">{city.name}</h3>
+            <p className="mt-2 text-sm font-medium text-muted">{city.address}</p>
             <p className="mt-3 text-sm font-semibold text-accent">{city.phone}</p>
             <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
               Подробнее →
@@ -304,7 +304,7 @@ export function ReviewsSection() {
                 <Star key={i} className="h-5 w-5 fill-accent text-accent" />
               ))}
             </div>
-            <span className="text-sm text-muted">средний рейтинг по площадкам</span>
+            <span className="text-sm font-medium text-muted">средний рейтинг по площадкам</span>
           </div>
         </div>
       </div>
@@ -322,7 +322,7 @@ export function ReviewsSection() {
           </blockquote>
           <footer className="mt-6 border-t border-border/80 pt-6">
             <p className="font-semibold">{featured.name}</p>
-            <p className="text-sm text-muted">{featured.role}</p>
+            <p className="text-sm font-medium text-muted">{featured.role}</p>
           </footer>
         </Card>
       ) : null}
@@ -335,10 +335,10 @@ export function ReviewsSection() {
                 <Star key={i} className="h-4 w-4 fill-accent text-accent" />
               ))}
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-muted">«{r.text}»</p>
+            <p className="mt-3 text-sm font-medium leading-relaxed text-muted">«{r.text}»</p>
             <div className="mt-4 border-t border-border pt-4">
               <p className="font-semibold">{r.name}</p>
-              <p className="text-xs text-muted">{r.role}</p>
+              <p className="text-xs font-medium text-muted">{r.role}</p>
             </div>
           </Card>
         ))}
@@ -380,8 +380,8 @@ export function FinalCta({ city, service }: { city?: string; service?: string })
         </div>
         <div>
           <Badge>Расчет и бесплатный осмотр</Badge>
-          <h2 className="mt-5 text-3xl font-semibold leading-tight sm:text-4xl">Получите смету, график и чек-лист под ваш объект</h2>
-          <p className="mt-4 text-lg leading-8 text-muted">
+          <h2 className="text-section-title mt-5 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">Получите смету, график и чек-лист под ваш объект</h2>
+          <p className="mt-4 text-lg font-medium leading-8 text-muted">
             Менеджер уточнит задачу, предложит схему уборки и подготовит расчет без скрытых доплат. На объект можно выехать в день обращения.
           </p>
 

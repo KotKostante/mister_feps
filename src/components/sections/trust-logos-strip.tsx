@@ -51,7 +51,7 @@ export function TrustLogosStrip() {
   return (
     <section data-animate-section className="border-y border-border bg-surface/90 py-9 sm:py-10">
       <Container>
-        <p data-animate="heading" className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+        <p data-animate="heading" className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-foreground/75">
           Из кейсов
         </p>
         <div className="mx-auto mt-8 flex max-w-5xl flex-wrap items-center justify-center gap-x-10 gap-y-8 md:gap-x-14 lg:gap-x-16">

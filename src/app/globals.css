@@ -32,7 +32,8 @@
   --background: 0 0% 98%;
   --foreground: 222 47% 11%;
   --surface: 0 0% 100%;
-  --muted: 215 16% 47%;
+  /* Вторичный текст: темнее, чтобы на белом/surface читался так же уверенно, как белый на герое */
+  --muted: 215 22% 34%;
   --border: 214 32% 91%;
   --primary: 337 91% 51%;             /* #F41067 малиновый */
   --primary-foreground: 0 0% 100%;
@@ -46,7 +47,7 @@
   --background: 0 0% 15%;             /* ~#262626 */
   --foreground: 0 0% 90%;             /* #e5e5e5 */
   --surface: 0 0% 18%;                /* ~#2e2e2e карточки */
-  --muted: 0 0% 60%;
+  --muted: 0 0% 70%;                  /* вторичный текст на тёмном — светлее для контраста */
   --border: 224 34% 30%;              /* чуть светлее бордер */
   --primary: 337 91% 51%;             /* #F41067 малиновый */
   --primary-foreground: 0 0% 100%;
@@ -449,6 +450,19 @@ html.motion-enabled:not(.motion-reduced) [data-animate-section] [data-animate="h
   text-shadow:
     0 0.06em 0.22em rgba(0, 0, 0, 0.62),
     0 0.02em 0.06em rgba(0, 0, 0, 0.88);
+}
+
+/* Заголовки секций на светлом фоне — чуть «плотнее», по ощущению как герой (без тёмной подложки) */
+.text-section-title {
+  text-shadow:
+    0 0.04em 0.12em rgba(255, 255, 255, 0.9),
+    0 0.08em 0.24em rgba(15, 23, 42, 0.06);
+}
+
+.dark .text-section-title {
+  text-shadow:
+    0 0.06em 0.18em rgba(0, 0, 0, 0.45),
+    0 0.02em 0.06em rgba(0, 0, 0, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {
