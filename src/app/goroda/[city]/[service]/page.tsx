@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/json-ld";
 import {
   AdvantagesList,
   CasesSection,
+  CityContactsSection,
   ComboOtherServices,
   FaqSection,
   FinalCta,
@@ -91,6 +92,7 @@ export default async function ComboPage({ params }: Props) {
           casesListForPage={comboCasesList}
           pageFaq={pageFaqUborka}
           leadCity={city.name}
+          city={city}
         />
       </>
     );
@@ -223,6 +225,7 @@ export default async function ComboPage({ params }: Props) {
         </div>
       </Section>
       <ReviewsSection />
+      <CityContactsSection city={city} />
       <ComboOtherServices citySlug={city.slug} currentSlug={service.slug} />
       <FaqSection items={comboFaq} />
       <FinalCta city={city.name} service={service.title} />

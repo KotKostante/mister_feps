@@ -2,7 +2,7 @@
 
 import anime from "animejs";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { services } from "@/data/site";
 
 export function ServicesGrid({
@@ -13,12 +13,12 @@ export function ServicesGrid({
   slugs
 }: { citySlug?: string; fullList?: boolean; slugs?: string[] } = {}) {
   const [expanded, setExpanded] = useState(false);
-  const [initialCount, setInitialCount] = useState(16);
+  const initialCount = useSyncExternalStore(
+    () => () => undefined,
+    () => (window.innerWidth < 640 ? 5 : 16),
+    () => 16
+  );
   const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setInitialCount(window.innerWidth < 640 ? 5 : 16);
-  }, []);
 
   /** Карточки, добавленные по кнопке «Показать все», уже после срабатывания IntersectionObserver — докручиваем reveal */
   useEffect(() => {

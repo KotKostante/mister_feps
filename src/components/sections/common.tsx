@@ -5,7 +5,6 @@ import { LeadForm } from "@/components/lead-form";
 import { Badge, ButtonLink, Card, NumberBadge, NumberedStepCard, Section, SectionHeading } from "@/components/ui";
 import type { City } from "@/data/site";
 import { advantages, brand, cases, cities, faqs, processSteps, reviewPlatforms, reviews, services } from "@/data/site";
-import { YandexMapEmbed } from "@/components/yandex-map-embed";
 import { cityYandexMapsUrl } from "@/lib/city-map";
 import { cn, phoneHref } from "@/lib/utils";
 
@@ -204,7 +203,7 @@ export function CityCoverageSection({ city }: { city: City }) {
 export function CityContactsSection({ city }: { city: City }) {
   return (
     <Section>
-      <SectionHeading title={`Контакты в ${city.prepositional}`} text="Локальный телефон и адрес офиса — звоните или оставьте заявку на расчёт." />
+      <SectionHeading title={`Контакты в ${city.prepositional}`} text="Локальный телефон, адрес и быстрые ссылки на отзывы и вопросы в картах." />
       <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
         <Card className="shadow-none">
           <p className="text-sm font-semibold text-primary">Телефон</p>
@@ -213,23 +212,47 @@ export function CityContactsSection({ city }: { city: City }) {
           </a>
           <p className="mt-4 text-sm text-muted">{city.address}</p>
           <p className="mt-1 text-xs text-muted">{city.area}</p>
+          <CityMapButtons city={city} className="mt-5" />
         </Card>
-        <div className="relative flex min-h-[220px] flex-col overflow-hidden rounded-2xl border border-border bg-muted/30">
-          <YandexMapEmbed variant="city" city={city} title={`Офис в ${city.name}`} mapHeightClass="min-h-[220px] flex-1 w-full" />
-          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border bg-background/95 px-3 py-2">
-            <p className="text-xs text-muted">Ориентир по городу — точку выезда уточняет менеджер</p>
-            <a
-              href={cityYandexMapsUrl(city)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-semibold text-accent hover:underline"
-            >
-              Открыть в Яндекс.Картах →
-            </a>
-          </div>
-        </div>
+        <Card className="shadow-none">
+          <p className="text-sm font-semibold text-primary">Отзывы и вопросы</p>
+          <h3 className="mt-2 text-2xl font-bold">Откройте карточку Mister FAPC</h3>
+          <p className="mt-3 text-sm leading-6 text-muted">
+            В Яндекс.Картах и 2ГИС можно посмотреть отзывы, задать вопрос, проверить маршрут и сохранить офис.
+          </p>
+          <CityMapButtons city={city} className="mt-5" />
+        </Card>
       </div>
     </Section>
+  );
+}
+
+export function CityMapButtons({ city, className }: { city: City; className?: string }) {
+  return (
+    <div className={cn("flex flex-wrap gap-2", className)}>
+      <a
+        href={cityYandexMapsUrl(city)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-accent/35 bg-accent/[0.07] px-4 text-sm font-semibold text-accent transition hover:bg-accent/15"
+      >
+        <Star className="h-4 w-4" aria-hidden />
+        Отзывы и вопросы в Яндекс
+        <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden />
+      </a>
+      {city.twoGisUrl ? (
+        <a
+          href={city.twoGisUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 text-sm font-semibold transition hover:border-accent/50 hover:text-accent"
+        >
+          <Star className="h-4 w-4 text-accent" aria-hidden />
+          Отзывы в 2ГИС
+          <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden />
+        </a>
+      ) : null}
+    </div>
   );
 }
 
@@ -274,16 +297,16 @@ export function CityGrid() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {cities.map((city) => (
-        <Link key={city.slug} href={`/goroda/${city.slug}/`} className="group">
+        <div key={city.slug} className="group">
           <Card className="flex h-full flex-col transition group-hover:border-accent">
             <h3 className="text-xl font-bold tracking-tight text-foreground">{city.name}</h3>
             <p className="mt-2 text-sm font-medium text-muted">{city.address}</p>
             <p className="mt-3 text-sm font-semibold text-accent">{city.phone}</p>
-            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+            <Link href={`/goroda/${city.slug}/`} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline">
               Подробнее →
-            </span>
+            </Link>
           </Card>
-        </Link>
+        </div>
       ))}
     </div>
   );
@@ -371,7 +394,7 @@ export function FinalCta({ city, service }: { city?: string; service?: string })
       <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-stretch">
         <div className="relative min-h-[320px] overflow-hidden rounded-2xl lg:min-h-0">
           <Image
-            src="/foto3.png"
+            src="/foto3.webp"
             alt="Уборка объекта командой Mister FAPC"
             fill
             className="object-cover"

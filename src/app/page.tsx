@@ -44,7 +44,7 @@ export default function HomePage() {
         }
         subtitle="Mister FAPC — клининговая компания полного цикла для офисов, складов и производств. Берём на себя уборку, график, команду и отчётность. Договор с оплатой после приёмки."
         primaryCta={{ href: "/contacts/#lead-form", label: "Рассчитать стоимость уборки" }}
-        secondaryCta={{ href: phoneHref(brand.mainPhone), label: "Позвонить" }}
+        secondaryCta={{ href: phoneHref(brand.mainPhone), label: brand.mainPhone }}
         showStats
         right={<HeroRightProduct />}
       />

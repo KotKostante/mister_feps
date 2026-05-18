@@ -3,8 +3,6 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CityGrid, FinalCta, SlaMiniSection } from "@/components/sections/common";
 import { Card, Section, SectionHeading } from "@/components/ui";
-import { YandexMapEmbed } from "@/components/yandex-map-embed";
-import { allOfficesYandexMapsUrl } from "@/lib/city-map";
 import { absoluteUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -43,20 +41,6 @@ export default function CitiesPage() {
           <Link href="/prices/" className="text-sm font-semibold text-accent hover:underline">
             Таблица цен →
           </Link>
-        </div>
-        <div className="relative mt-10 flex min-h-[220px] flex-col overflow-hidden rounded-2xl border border-border bg-muted/30">
-          <YandexMapEmbed variant="offices" title="Офисы Mister FAPC на карте" mapHeightClass="min-h-[220px] flex-1 w-full" />
-          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border bg-background/95 px-3 py-2">
-            <p className="text-xs text-muted">Ориентир по офисам — точку выезда уточняет менеджер</p>
-            <a
-              href={allOfficesYandexMapsUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-semibold text-accent hover:underline"
-            >
-              Открыть в Яндекс.Картах →
-            </a>
-          </div>
         </div>
         <div className="mt-12">
           <CityGrid />

@@ -6,7 +6,6 @@ import { cities } from "@/data/site";
 import { allOfficesYandexMapsUrl, cityYandexMapsUrl } from "@/lib/city-map";
 import { phoneHref } from "@/lib/utils";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type YamapsAny = any;
 
 function loadYandexScript(apiKey: string): Promise<void> {
@@ -53,16 +52,13 @@ export function YandexMapEmbed({
 }: YandexMapEmbedProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const apiKey = process.env.NEXT_PUBLIC_YANDEX_MAPS_API_KEY;
-  const [loadError, setLoadError] = useState(false);
-  const useFallback = !apiKey || loadError;
   const citySlug = city?.slug;
+  const mapKey = `${variant}:${citySlug ?? "all"}:${apiKey ?? "no-key"}`;
+  const [loadErrorKey, setLoadErrorKey] = useState<string | null>(null);
+  const useFallback = !apiKey || loadErrorKey === mapKey;
 
   useEffect(() => {
-    setLoadError(false);
-  }, [variant, citySlug, apiKey]);
-
-  useEffect(() => {
-    if (!apiKey || loadError) return;
+    if (!apiKey || loadErrorKey === mapKey) return;
 
     let cancelled = false;
     let map: YamapsAny = null;
@@ -74,7 +70,7 @@ export function YandexMapEmbed({
 
         const ymaps = (window as Window & { ymaps?: YamapsAny }).ymaps;
         if (!ymaps) {
-          if (!cancelled) setLoadError(true);
+          if (!cancelled) setLoadErrorKey(mapKey);
           return;
         }
 
@@ -125,7 +121,7 @@ export function YandexMapEmbed({
       } catch {
         map?.destroy?.();
         map = null;
-        if (!cancelled) setLoadError(true);
+        if (!cancelled) setLoadErrorKey(mapKey);
       }
     };
 
@@ -136,7 +132,7 @@ export function YandexMapEmbed({
       map?.destroy?.();
       map = null;
     };
-  }, [variant, citySlug, city, apiKey, loadError]);
+  }, [variant, citySlug, city, apiKey, loadErrorKey, mapKey]);
 
   const fallbackHref = variant === "city" && city ? cityYandexMapsUrl(city) : allOfficesYandexMapsUrl();
 
@@ -147,7 +143,7 @@ export function YandexMapEmbed({
           <p className="max-w-md text-sm text-muted">
             {apiKey
               ? "Не удалось загрузить карту. Откройте ссылку ниже."
-              : "Задайте NEXT_PUBLIC_YANDEX_MAPS_API_KEY в .env.local или откройте карту по ссылке."}
+              : "Интерактивная карта откроется в отдельном окне. На сайте оставили быстрый переход к карточке офиса."}
           </p>
           <a
             href={fallbackHref}

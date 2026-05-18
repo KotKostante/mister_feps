@@ -4,6 +4,7 @@ import Image from "next/image";
 import {
   AdvantagesList,
   CasesSection,
+  CityContactsSection,
   CityGrid,
   FaqSection,
   FinalCta,
@@ -22,7 +23,7 @@ import {
   Section,
   SectionHeading
 } from "@/components/ui";
-import type { Service } from "@/data/site";
+import type { City, Service } from "@/data/site";
 import { hintForServiceFactor } from "@/lib/service-factor-hints";
 import { cn } from "@/lib/utils";
 import { DEFAULT_CLIENT_RESULTS, DEFAULT_SERVICE_AUDIENCE } from "./service-detail-defaults";
@@ -69,18 +70,20 @@ export function ServiceDetailSections({
   service,
   casesListForPage,
   pageFaq,
-  leadCity
+  leadCity,
+  city
 }: {
   service: Service;
   casesListForPage: Parameters<typeof CasesSection>[0]["casesList"];
   pageFaq: FaqItem[];
   /** Имя города для формы заявки в финальном блоке */
   leadCity?: string;
+  city?: City;
 }) {
   const audienceBlocks = service.audience ?? DEFAULT_SERVICE_AUDIENCE;
   const clientResultPairs = service.clientResults ?? DEFAULT_CLIENT_RESULTS;
   const hasGallery = Boolean(service.gallery?.length);
-  const includesVisualSrc = service.heroCover ?? service.pricingSectionImage ?? "/foto1.png";
+  const includesVisualSrc = service.heroCover ?? service.pricingSectionImage;
 
   return (
     <>
@@ -91,8 +94,8 @@ export function ServiceDetailSections({
       {service.gallery && service.gallery.length > 0 ? (
         <Section id="service-gallery">
           <SectionHeading
-            title="Как выглядят офисы после уборки"
-            text="Фото с объектов: рабочие зоны, переговорные и общие пространства после регламентной уборки."
+            title="Фото с объектов"
+            text={`Подходящие фото из выполненных работ по направлению «${service.shortTitle}».`}
           />
           <div className="grid gap-4 sm:grid-cols-2">
             {service.gallery.map((item, index) => (
@@ -116,7 +119,7 @@ export function ServiceDetailSections({
 
       <Section id="service-includes" className={cn("scroll-mt-28", hasGallery ? "bg-surface" : undefined)}>
         <SectionHeading title="Что входит в услугу" text="Состав работ фиксируется до старта и становится частью регламента приемки." />
-        {!hasGallery ? (
+        {!hasGallery && includesVisualSrc ? (
           <div className="grid gap-8 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:items-start">
             <figure className="relative mx-auto aspect-[4/3] w-full max-w-[400px] overflow-hidden rounded-2xl border border-border shadow-soft lg:mx-0 lg:max-w-none">
               <Image
@@ -170,16 +173,18 @@ export function ServiceDetailSections({
       </Section>
 
       <Section id="service-pricing" className={cn("scroll-mt-28", hasGallery ? "bg-surface" : undefined)}>
-        <div className="grid gap-8 lg:grid-cols-[minmax(200px,240px)_minmax(0,1fr)] lg:items-stretch lg:gap-10">
-          <figure className="relative mx-auto aspect-[3/5] w-full max-w-[240px] shrink-0 overflow-hidden rounded-2xl border border-border shadow-soft lg:mx-0 lg:aspect-auto lg:h-full lg:min-h-0 lg:w-[240px] lg:max-w-none">
-            <Image
-              src={service.pricingSectionImage ?? "/foto1.png"}
-              alt={`Формат объекта и регламент — ориентир по услуге «${service.shortTitle}»`}
-              fill
-              className="object-cover object-[center_22%]"
-              sizes="(max-width: 1024px) 90vw, 240px"
-            />
-          </figure>
+        <div className={cn("grid gap-8 lg:items-stretch lg:gap-10", service.pricingSectionImage ? "lg:grid-cols-[minmax(200px,240px)_minmax(0,1fr)]" : "lg:grid-cols-1")}>
+          {service.pricingSectionImage ? (
+            <figure className="relative mx-auto aspect-[3/5] w-full max-w-[240px] shrink-0 overflow-hidden rounded-2xl border border-border shadow-soft lg:mx-0 lg:aspect-auto lg:h-full lg:min-h-0 lg:w-[240px] lg:max-w-none">
+              <Image
+                src={service.pricingSectionImage}
+                alt={`Формат объекта и регламент — ориентир по услуге «${service.shortTitle}»`}
+                fill
+                className="object-cover object-[center_22%]"
+                sizes="(max-width: 1024px) 90vw, 240px"
+              />
+            </figure>
+          ) : null}
           <div className="flex min-w-0 flex-col gap-5">
             <div className="max-w-3xl">
               <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">Стоимость</h2>
@@ -235,7 +240,7 @@ export function ServiceDetailSections({
 
       <WhyUsSplit
         sectionId="service-whyus"
-        imageSrc={service.whyUsSplitImage ?? "/foto1.png"}
+        imageSrc={service.whyUsSplitImage ?? null}
         imageAlt={`${service.title} — регламент уборки`}
         eyebrow="Стандарты работы"
         title="Регламент и документы вместо разрозненного контроля"
@@ -265,6 +270,7 @@ export function ServiceDetailSections({
         intro="Реальные объекты, площади и график — цифры в карточках, а не абстрактные обещания."
         casesList={casesListForPage}
       />
+      {city ? <CityContactsSection city={city} /> : null}
       <ReviewsSection />
       <FaqSection sectionId="service-faq" items={pageFaq} />
       <FinalCta city={leadCity} service={service.title} />

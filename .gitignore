@@ -1,7 +1,29 @@
+# dependencies
 node_modules/
+
+# next.js
 .next/
-.env
-.env.local
-.env*.local
 out/
-dist/
+
+# build
+*.tsbuildinfo
+
+# env
+.env
+.env.*
+!.env.example
+
+# debug
+npm-debug.log*
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Cursor (секреты MCP)
+.cursor/mcp.json
+
+# локальный бэкап при переносе (папка с пробелом в конце имени)
+/бэкап старый /
+/бэкап старый/

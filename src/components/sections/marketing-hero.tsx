@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck, ExternalLink, Star } from "lucide-react";
 import { AnimatedNumber } from "@/components/animated-number";
 import { CleanWindowDemo } from "@/components/clean-window-demo";
 import { ButtonLink } from "@/components/ui";
 import type { City } from "@/data/site";
 import { heroProductBullets, MARKETING_HERO_BG } from "@/data/marketing";
 import { trustStats } from "@/data/site";
+import { cityYandexMapsUrl } from "@/lib/city-map";
 import { phoneHref } from "@/lib/utils";
 
 /** Общая подложка героя: фон, градиенты, сетка 2 колонки */
@@ -68,7 +69,7 @@ export function MarketingHero({
             <ButtonLink href={primaryCta.href}>{primaryCta.label}</ButtonLink>
             <a
               href={secondaryCta.href}
-              className="text-hero-readable-soft inline-flex items-center rounded-xl border border-white/20 bg-white/8 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/40 hover:bg-white/12"
+              className="text-hero-readable inline-flex items-center rounded-xl border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_8px_24px_hsl(var(--primary)/0.35)] transition hover:bg-primary/90"
             >
               {secondaryCta.label}
             </a>
@@ -156,6 +157,30 @@ export function HeroRightCityCard({ city, priceHint }: { city: City; priceHint?:
         </a>
         <p className="mt-2 text-sm text-muted">{city.address}</p>
         <p className="mt-1 text-xs text-muted">{city.area}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <a
+            href={cityYandexMapsUrl(city)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-accent/35 bg-accent/[0.07] px-3 text-sm font-semibold text-accent transition hover:bg-accent/15"
+          >
+            <Star className="h-4 w-4" aria-hidden />
+            Яндекс
+            <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden />
+          </a>
+          {city.twoGisUrl ? (
+            <a
+              href={city.twoGisUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-border bg-background px-3 text-sm font-semibold transition hover:border-accent/50 hover:text-accent"
+            >
+              <Star className="h-4 w-4 text-accent" aria-hidden />
+              2ГИС
+              <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden />
+            </a>
+          ) : null}
+        </div>
       </div>
       <div className="mt-4 grid gap-2">
         {heroProductBullets.map((item) => (

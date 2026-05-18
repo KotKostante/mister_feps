@@ -12,9 +12,6 @@ import { absoluteUrl } from "@/lib/utils";
 
 type Props = { params: Promise<{ service: string }> };
 
-/** На Vercel edge долго отдавался старый HTML (HIT + большой Age); ISR обновляет страницу после деплоя и не «залипает» на месяцах. */
-export const revalidate = 60;
-
 export function generateStaticParams() {
   return [...services.map((service) => ({ service: service.slug })), ...extraServices.map((service) => ({ service: service.slug }))];
 }

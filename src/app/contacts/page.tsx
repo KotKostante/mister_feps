@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { LeadForm } from "@/components/lead-form";
+import { CityMapButtons } from "@/components/sections/common";
 import { ButtonLink, Card, Section, SectionHeading } from "@/components/ui";
-import { YandexMapEmbed } from "@/components/yandex-map-embed";
 import { brand, cities } from "@/data/site";
-import { allOfficesYandexMapsUrl } from "@/lib/city-map";
 import { absoluteUrl, phoneHref } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -63,26 +62,22 @@ export default function ContactsPage() {
                 {city.phone}
               </a>
               <p className="mt-2 text-xs text-muted">Менеджер: по направлению объекта</p>
+              <CityMapButtons city={city} className="mt-4" />
             </Card>
           ))}
         </div>
       </Section>
 
       <Section>
-        <SectionHeading title="Офисы на карте" text="Метки офисов на карте; точный адрес — в карточке города выше." />
-        <div className="relative flex min-h-[320px] flex-col overflow-hidden rounded-2xl border border-border">
-          <YandexMapEmbed variant="offices" title="Офисы Mister FAPC на карте" mapHeightClass="min-h-[320px] flex-1 w-full" />
-          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border bg-background/95 px-3 py-2">
-            <p className="text-xs text-muted">Дублировать карту в приложении Яндекса</p>
-            <a
-              href={allOfficesYandexMapsUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-semibold text-accent hover:underline"
-            >
-              Открыть в Яндекс.Картах →
-            </a>
-          </div>
+        <SectionHeading title="Отзывы и вопросы в картах" text="Выберите город и откройте карточку Mister FAPC в Яндекс.Картах или 2ГИС." />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {cities.map((city) => (
+            <Card key={city.slug} className="shadow-none">
+              <p className="font-semibold">{city.name}</p>
+              <p className="mt-2 text-sm text-muted">{city.address}</p>
+              <CityMapButtons city={city} className="mt-4" />
+            </Card>
+          ))}
         </div>
       </Section>
     </>

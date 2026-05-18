@@ -1,7 +1,7 @@
 "use client";
 
 import { Calculator, CheckCircle2, Clock3, UsersRound } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { DemoObjectTypeId } from "@/lib/pricing-demo-lock";
 
 const objectTypes = [
@@ -32,22 +32,18 @@ export function CleanWindowDemo({
   const [area, setArea] = useState(1200);
   const [objectType, setObjectType] = useState<DemoObjectTypeId>(lockObjectType ?? "office");
   const [schedule, setSchedule] = useState<(typeof schedules)[number]["id"]>("weekly");
-
-  useEffect(() => {
-    if (lockObjectType) setObjectType(lockObjectType);
-  }, [lockObjectType]);
-
   const locked = Boolean(lockObjectType);
+  const selectedObjectType = lockObjectType ?? objectType;
 
   const result = useMemo(() => {
-    const type = objectTypes.find((item) => item.id === objectType) ?? objectTypes[0];
+    const type = objectTypes.find((item) => item.id === selectedObjectType) ?? objectTypes[0];
     const plan = schedules.find((item) => item.id === schedule) ?? schedules[1];
     const estimate = area * type.rate * plan.multiplier;
     const team = Math.max(type.teamBase, Math.ceil(area / 850) + type.teamBase - 1);
     const shifts = area > 2500 ? "2 смены" : area > 900 ? "1 смена + контроль" : "1 смена";
 
     return { type, plan, estimate, team, shifts };
-  }, [area, objectType, schedule]);
+  }, [area, selectedObjectType, schedule]);
 
   return (
     <div className="info-glint rounded-xl border border-border bg-surface p-4 shadow-soft">
@@ -85,7 +81,7 @@ export function CleanWindowDemo({
           <p className="rounded-lg border border-accent/30 bg-accent/5 px-3 py-2 text-xs font-medium text-muted">
             Тип объекта:{" "}
             <span className="font-semibold text-foreground">
-              {objectTypes.find((t) => t.id === objectType)?.label}
+              {result.type.label}
             </span>
             {" · "}
             ориентир {objectTypes.find((t) => t.id === objectType)?.rate} руб/м²

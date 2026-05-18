@@ -18,7 +18,7 @@ export type WhyUsBenefit = { icon: WhyUsIconKey; title: string; desc: string };
  * Тексты и набор карточек можно переопределить через props.
  */
 export function WhyUsSplit({
-  imageSrc = "/foto1.png",
+  imageSrc = "/foto1.webp",
   imageAlt,
   eyebrow,
   title,
@@ -27,7 +27,7 @@ export function WhyUsSplit({
   actions,
   sectionId
 }: {
-  imageSrc?: string;
+  imageSrc?: string | null;
   imageAlt: string;
   eyebrow: string;
   title: string;
@@ -37,17 +37,21 @@ export function WhyUsSplit({
   /** Якорь для оглавления на странице услуги */
   sectionId?: string;
 }) {
+  const hasImage = Boolean(imageSrc);
+
   return (
     <section id={sectionId} className="relative overflow-hidden bg-background">
-      <div className="mx-auto grid w-full max-w-[1200px] px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-stretch lg:gap-16 lg:px-8 lg:py-24">
-        <div className="relative overflow-hidden rounded-2xl">
-          <img src={imageSrc} alt={imageAlt} className="h-[420px] w-full object-cover lg:h-full lg:min-h-[480px]" />
-          {/* Лёгкое затемнение как у героя — фото не «выбивает» глаз рядом с текстом */}
-          <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#070a0d]/35 via-transparent to-[#070a0d]/15"
-            aria-hidden
-          />
-        </div>
+      <div className={`mx-auto grid w-full max-w-[1200px] px-4 py-16 sm:px-6 sm:py-20 lg:items-stretch lg:gap-16 lg:px-8 lg:py-24 ${hasImage ? "lg:grid-cols-2" : "lg:grid-cols-1"}`}>
+        {hasImage ? (
+          <div className="relative overflow-hidden rounded-2xl">
+            <img src={imageSrc ?? ""} alt={imageAlt} className="h-[420px] w-full object-cover lg:h-full lg:min-h-[480px]" />
+            {/* Лёгкое затемнение как у героя — фото не «выбивает» глаз рядом с текстом */}
+            <div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#070a0d]/35 via-transparent to-[#070a0d]/15"
+              aria-hidden
+            />
+          </div>
+        ) : null}
         <div data-animate-section>
           <div data-animate="heading">
             <span className="text-xs font-semibold uppercase tracking-widest text-accent">{eyebrow}</span>

@@ -16,7 +16,7 @@ export function localBusinessSchema(city: City, path: string) {
       addressCountry: "RU"
     },
     url: absoluteUrl(path),
-    image: absoluteUrl(`/og-${city.slug}.jpg`),
+    image: absoluteUrl(`/og-${city.slug}.webp`),
     areaServed: city.area,
     priceRange: "$$",
     openingHours: "Mo-Fr 08:00-20:00"

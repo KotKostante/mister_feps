@@ -47,6 +47,8 @@ export type City = {
   /** Центр карты OSM (embed и ссылка «открыть карту») */
   lat?: number;
   lon?: number;
+  yandexMapsUrl?: string;
+  twoGisUrl?: string;
   note?: string;
 };
 
@@ -68,11 +70,11 @@ export type Service = {
   faqExtra?: { question: string; answer: string }[];
   /** Галерея на странице услуги (например 2×2) */
   gallery?: { src: string; alt: string }[];
-  /** Фон первого блока страницы услуги — путь из public (напр. /фото/…) */
+  /** Фон первого блока страницы услуги — путь из public (например, /foto1.webp) */
   heroCover?: string;
   /** Иллюстрация слева в блоке «Стоимость» на /uslugi/[slug]/ */
   pricingSectionImage?: string;
-  /** Фото слева в WhyUsSplit на странице услуги (по умолчанию /foto1.png) */
+  /** Фото слева в WhyUsSplit на странице услуги (по умолчанию /foto1.webp) */
   whyUsSplitImage?: string;
 };
 
@@ -116,7 +118,9 @@ export const cities: City[] = [
     phone: "+7 (343) 357-91-21",
     area: "Екатеринбург и Свердловская область",
     lat: 56.838,
-    lon: 60.597
+    lon: 60.597,
+    yandexMapsUrl: "https://yandex.ru/profile/144385794281?lang=ru",
+    twoGisUrl: "https://2gis.ru/ekaterinburg/geo/70000001060043194"
   },
   {
     slug: "perm",
@@ -138,7 +142,8 @@ export const cities: City[] = [
     phone: "+7 (351) 225-61-59",
     area: "Челябинск и область",
     lat: 55.164,
-    lon: 61.437
+    lon: 61.437,
+    twoGisUrl: "https://2gis.ru/chelyabinsk/geo/70000001061716265"
   },
   {
     slug: "tyumen",
@@ -149,7 +154,8 @@ export const cities: City[] = [
     phone: "+7 (3452) 69-23-68",
     area: "Тюмень и область",
     lat: 57.152,
-    lon: 65.527
+    lon: 65.527,
+    twoGisUrl: "https://2gis.ru/tyumen/geo/70000001085763250"
   },
   {
     slug: "novosibirsk",
@@ -160,7 +166,9 @@ export const cities: City[] = [
     phone: "+7 (383) 242-72-89",
     area: "Новосибирск и область",
     lat: 55.03,
-    lon: 82.92
+    lon: 82.92,
+    yandexMapsUrl: "https://yandex.ru/maps/-/CDhaZ6nk",
+    twoGisUrl: "https://2gis.ru/novosibirsk/geo/70000001089284770"
   },
   {
     slug: "nizhny-tagil",
@@ -170,8 +178,10 @@ export const cities: City[] = [
     address: "Черноисточинское ш. 65",
     phone: "+7 (3435) 37-08-28",
     area: "Нижний Тагил и область",
-    lat: 57.919,
-    lon: 59.966
+    lat: 57.866842,
+    lon: 59.944875,
+    yandexMapsUrl: "https://yandex.ru/maps/org/mister_feps/211822820792/?ll=59.944875%2C57.866842&z=15",
+    twoGisUrl: "https://2gis.ru/ntagil/firm/70000001060102480"
   },
   {
     slug: "lipetsk",
@@ -182,7 +192,9 @@ export const cities: City[] = [
     phone: "+7 (4742) 54-50-27",
     area: "Липецк и область",
     lat: 52.61,
-    lon: 39.595
+    lon: 39.595,
+    yandexMapsUrl: "https://yandex.ru/maps/org/mister_feps/193564113543/",
+    twoGisUrl: "https://2gis.ru/lipetsk/geo/70000001056456844"
   },
   {
     slug: "irkutsk",
@@ -193,13 +205,100 @@ export const cities: City[] = [
     phone: "+7 (3952) 78-84-79",
     area: "Иркутск и область",
     lat: 52.286,
-    lon: 104.281
+    lon: 104.281,
+    yandexMapsUrl: "https://yandex.ru/maps/-/CPcpB-9G",
+    twoGisUrl: "https://2gis.ru/irkutsk/geo/70000001091220367"
   }
 ];
 
 export const primaryCitySlugs = ["ekaterinburg", "perm", "chelyabinsk", "tyumen", "novosibirsk", "nizhny-tagil", "lipetsk", "irkutsk"];
 
-export const services: Service[] = [
+type ServiceVisuals = Pick<Service, "heroCover" | "pricingSectionImage" | "whyUsSplitImage" | "gallery">;
+
+const servicePhotoSets = {
+  office: ["/services/office-modern-3.webp", "/services/office-cleaning-1.webp", "/services/office-cleaning-2.webp"],
+  warehouse: ["/services/warehouse-cleaning-hero-enhanced.webp", "/services/warehouse-cleaning-2.webp", "/services/warehouse-cleaning-3.webp"],
+  industrial: ["/services/industrial-dust-1.webp", "/services/industrial-dust-2.webp", "/services/industrial-dust-3.webp"],
+  medical: ["/services/commercial-5.webp", "/services/commercial-6.webp", "/services/wet-zone-cleaning-2.webp"],
+  government: ["/services/team-uniform-1.webp", "/services/commercial-1.webp", "/services/commercial-2.webp"],
+  general: ["/services/general-corridor-1.webp", "/services/general-corridor-2.webp", "/services/general-corridor-3.webp"],
+  postRenovation: ["/services/post-renovation-1.webp", "/services/post-renovation-2.webp", "/services/post-renovation-3.webp"],
+  parking: ["/services/parking-1.webp", "/services/parking-2.webp", "/services/parking-3.webp"],
+  floor: ["/services/floor-cleaning-1.webp", "/services/floor-cleaning-2.webp", "/services/post-construction-team-3.webp"],
+  upholstery: ["/services/upholstery-cleaning-1.webp", "/services/upholstery-cleaning-2.webp", "/services/upholstery-cleaning-3.webp"],
+  windows: ["/services/window-facade-4.webp", "/services/window-facade-5.webp", "/services/window-facade-6.webp"],
+  kitchen: ["/services/kitchen-cleaning-1.webp", "/services/commercial-5.webp", "/services/commercial-6.webp"],
+  retail: ["/services/retail-cleaning-1.webp", "/services/commercial-5.webp", "/services/commercial-6.webp"],
+  residential: ["/services/residential-common-3.webp", "/services/general-corridor-2.webp", "/services/general-corridor-3.webp"],
+  sports: ["/services/industrial-cleaning-1.webp", "/services/floor-cleaning-1.webp", "/services/floor-cleaning-2.webp"],
+  wetZone: ["/services/wet-zone-cleaning-1.webp", "/services/wet-zone-cleaning-2.webp", "/services/general-cleaning-1.webp"],
+  hotel: ["/services/hotel-cleaning-generated-1.webp", "/services/team-uniform-1.webp", "/services/general-corridor-1.webp"],
+  fire: ["/services/fire-cleaning-generated-1.webp", "/services/emergency-1.webp", "/services/post-renovation-2.webp"],
+  flood: ["/services/flood-cleaning-generated-1.webp", "/services/emergency-2.webp", "/services/wet-zone-cleaning-1.webp"],
+  cinema: ["/services/cinema-cleaning-generated-1.webp", "/services/upholstery-cleaning-2.webp", "/services/carpet-cleaning-generated-1.webp"],
+  carpet: ["/services/carpet-cleaning-generated-1.webp", "/services/upholstery-cleaning-1.webp", "/services/floor-cleaning-2.webp"],
+  curtain: ["/services/curtain-cleaning-generated-1.webp", "/services/commercial-4.webp", "/services/team-uniform-1.webp"],
+  paving: ["/services/paving-cleaning-generated-1.webp", "/services/parking-2.webp", "/services/floor-cleaning-1.webp"],
+  transport: ["/services/transport-cleaning-generated-1.webp", "/services/upholstery-cleaning-3.webp", "/services/general-cleaning-2.webp"],
+  fuel: ["/services/fuel-cleaning-generated-1.webp", "/services/industrial-cleaning-1.webp", "/services/parking-1.webp"],
+  terminal: ["/services/terminal-cleaning-generated-1.webp", "/services/floor-cleaning-1.webp", "/services/commercial-3.webp"],
+  school: ["/services/school-cleaning-generated-1.webp", "/services/general-corridor-2.webp", "/services/commercial-5.webp"],
+  event: ["/services/event-cleaning-generated-1.webp", "/services/commercial-1.webp", "/services/floor-cleaning-2.webp"]
+} satisfies Record<string, [string, string, string]>;
+
+const servicePhotoSetBySlug: Partial<Record<string, keyof typeof servicePhotoSets>> = {
+  "uborka-ofisov": "office",
+  "uborka-proizvodstva": "industrial",
+  "uborka-skladov": "warehouse",
+  "generalnaya-uborka": "general",
+  "uborka-posle-remonta": "postRenovation",
+  "uborka-torgovyh-setey": "retail",
+  "uborka-promoborudovaniya": "industrial",
+  "uborka-zhk": "residential",
+  "uborka-restoranov-kafe": "kitchen",
+  "uborka-medcentrov": "medical",
+  "uborka-fulfilmentov": "warehouse",
+  "uborka-sportivnyh-obyektov": "sports",
+  "uborka-saun-basseynov": "wetZone",
+  "uborka-parkingov": "parking",
+  "uborka-fasadov-okon": "windows",
+  "uborka-posle-pozhara": "fire",
+  "uborka-posle-potopa": "flood",
+  "himchistka-kinoteatrov": "cinema",
+  "himchistka-myagkoy-mebeli": "upholstery",
+  "himchistka-kovrolina": "carpet",
+  "himchistka-shtor": "curtain",
+  "chistka-pola": "floor",
+  "chistka-bruschatki": "paving",
+  "obespilivanie-ferm": "industrial",
+  "moyka-okon": "windows",
+  "klining-transporta": "transport",
+  "klining-neftebaz": "fuel",
+  "klining-transportnoy-infrastruktury": "terminal",
+  "uborka-detskih-uchrezhdeniy": "school",
+  "uborka-posle-meropriyatiy": "event",
+  "uborka-oteley": "hotel",
+  "uborka-gosuchrezhdeniy": "government"
+};
+
+function makeServiceVisuals(service: Service): ServiceVisuals {
+  const photoSetKey = servicePhotoSetBySlug[service.slug];
+  if (!photoSetKey) return {};
+
+  const photos = servicePhotoSets[photoSetKey];
+
+  return {
+    heroCover: photos[0],
+    pricingSectionImage: photos[1],
+    whyUsSplitImage: photos[2],
+    gallery: photos.map((src, index) => ({
+      src,
+      alt: `${service.title}: фото ${index + 1}`
+    }))
+  };
+}
+
+const baseServices: Service[] = [
   {
     slug: "uborka-ofisov",
     title: "Уборка офисов",
@@ -254,11 +353,9 @@ export const services: Service[] = [
           "Есть резерв и закреплённый менеджер объекта — время реакции прописываем в приложении к договору или SLA."
       }
     ],
-    heroCover: "/фото/uborka-ofisov-oblozhka.png",
-    /** Блок «Стоимость»: то же фото, что «фото 5 .jpg», доступ как `/фото/uborka-ofisov-stoimost.jpg` */
-    pricingSectionImage: "/фото/uborka-ofisov-stoimost.jpg",
-    /** Блок WhyUsSplit «Стандарты работы»: файл из папки фото (исходник «ФОТО 6.png») */
-    whyUsSplitImage: "/фото/foto-6.png"
+    heroCover: "/foto1.webp",
+    pricingSectionImage: "/foto2.webp",
+    whyUsSplitImage: "/foto3.webp"
   },
   {
     slug: "uborka-proizvodstva",
@@ -603,6 +700,11 @@ export const services: Service[] = [
   }
 ];
 
+export const services: Service[] = baseServices.map((service) => ({
+  ...service,
+  ...makeServiceVisuals(service)
+}));
+
 export const extraServices = [
   {
     slug: "sanitarnaya-obrabotka",
@@ -894,9 +996,9 @@ export const reviews = [
 ];
 
 export const reviewPlatforms = [
-  { name: "Яндекс.Карты", rating: "4.9", url: "#" },
-  { name: "Google Maps",  rating: "4.8", url: "#" },
-  { name: "2GIS",         rating: "4.9", url: "#" }
+  { name: "Яндекс.Карты", rating: "4.9", url: "https://yandex.ru/profile/144385794281?lang=ru" },
+  { name: "ВК", rating: "4.9", url: "https://vk.com/reviews-114828304" },
+  { name: "2GIS", rating: "4.9", url: "https://2gis.ru/ekaterinburg/geo/70000001060043194" }
 ];
 
 export function getCity(slug: string) {

@@ -60,7 +60,7 @@ export default async function CaseStudyPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image
-              src="/foto2.png"
+              src="/foto2.webp"
               alt="Иллюстрация: уборка коммерческого объекта"
               fill
               className="object-cover"

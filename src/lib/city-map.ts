@@ -42,6 +42,7 @@ export function allOfficesOsmExternalUrl(): string {
 
 /** Открыть Яндекс.Карты с маркером офиса (lon, lat в параметре pt) */
 export function cityYandexMapsUrl(city: City): string {
+  if (city.yandexMapsUrl) return city.yandexMapsUrl;
   const lat = city.lat ?? 56.84;
   const lon = city.lon ?? 60.6;
   return `https://yandex.ru/maps/?pt=${lon}%2C${lat}&z=15&l=map`;
