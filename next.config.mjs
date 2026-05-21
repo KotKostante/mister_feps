@@ -1,15 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: true,
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/**"
-      }
-    ]
-  },
   async redirects() {
     return [
       { source: "/uborka-ofisov", destination: "/uslugi/uborka-ofisov/", permanent: true },

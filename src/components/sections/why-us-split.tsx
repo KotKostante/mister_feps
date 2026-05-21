@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { CheckCircle2, CreditCard, FileCheck2, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Image from "next/image";
 import type { WhyUsIconKey } from "@/data/marketing";
 import { whyUsBenefitsDefault } from "@/data/marketing";
 
@@ -43,8 +44,14 @@ export function WhyUsSplit({
     <section id={sectionId} className="relative overflow-hidden bg-background">
       <div className={`mx-auto grid w-full max-w-[1200px] px-4 py-16 sm:px-6 sm:py-20 lg:items-stretch lg:gap-16 lg:px-8 lg:py-24 ${hasImage ? "lg:grid-cols-2" : "lg:grid-cols-1"}`}>
         {hasImage ? (
-          <div className="relative overflow-hidden rounded-2xl">
-            <img src={imageSrc ?? ""} alt={imageAlt} className="h-[420px] w-full object-cover lg:h-full lg:min-h-[480px]" />
+          <div className="relative h-[420px] overflow-hidden rounded-2xl lg:h-full lg:min-h-[480px]">
+            <Image
+              src={encodeURI(imageSrc ?? "")}
+              alt={imageAlt}
+              fill
+              sizes="(max-width: 1024px) 100vw, 560px"
+              className="object-cover"
+            />
             {/* Лёгкое затемнение как у героя — фото не «выбивает» глаз рядом с текстом */}
             <div
               className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#070a0d]/35 via-transparent to-[#070a0d]/15"

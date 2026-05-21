@@ -5,7 +5,7 @@ import { absoluteUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Кейсы клининга Mister FAPC",
-  description: "Кейсы Mister FAPC: Zolla, Самокат, Яндекс.Маркет, SinSay, МТС. Площади, бригады, география и регулярность работ.",
+  description: "Кейсы Mister FAPC: Яндекс Маркет, Zolla, БЦ «Первомайский» и ЖК «Сибирский сад». Площади, сотрудники, регламент и отчетность.",
   alternates: { canonical: absoluteUrl("/cases/") }
 };
 

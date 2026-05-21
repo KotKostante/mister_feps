@@ -11,6 +11,8 @@ export function AnimatedNumber({
   separator?: string;
   duration?: number;
 }) {
+  const formatted = Math.round(value).toLocaleString("ru-RU").replace(/\u00a0/g, separator);
+
   return (
     <span
       className="animated-number"
@@ -20,7 +22,7 @@ export function AnimatedNumber({
       data-count-separator={separator}
       data-count-duration={duration}
     >
-      {prefix}0{suffix}
+      {prefix}{formatted}{suffix}
     </span>
   );
 }

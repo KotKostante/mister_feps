@@ -22,7 +22,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(brand.domain),
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   title: {
     default: "Mister FAPC — клининг для юридических лиц",
     template: "%s | Mister FAPC"

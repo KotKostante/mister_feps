@@ -42,10 +42,10 @@ export default async function CaseStudyPage({ params }: Props) {
           ]}
         />
         <Badge>Кейс</Badge>
-        <h1 className="mt-5 text-4xl font-semibold leading-tight sm:text-5xl">
+        <h1 className="mt-5 max-w-full break-words text-3xl font-semibold leading-tight min-[420px]:text-4xl sm:text-5xl">
           {item.company}: {item.title}
         </h1>
-        <p className="mt-4 flex flex-wrap gap-3 text-sm text-muted">
+        <p className="mt-4 flex max-w-full flex-wrap gap-x-3 gap-y-2 break-words text-sm text-muted">
           {city ? <span>{city.name}</span> : null}
           {service ? (
             <a href={`/uslugi/${service.slug}/`} className="font-medium text-accent">
@@ -60,8 +60,8 @@ export default async function CaseStudyPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image
-              src="/foto2.webp"
-              alt="Иллюстрация: уборка коммерческого объекта"
+              src={encodeURI(item.coverImage ?? "/foto2.webp")}
+              alt={`${item.company}: ${item.title}`}
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -89,6 +89,24 @@ export default async function CaseStudyPage({ params }: Props) {
               <p className="mt-2 text-lg font-semibold">{item.metric}</p>
               <p className="mt-3 leading-7 text-muted">{item.result}</p>
             </Card>
+            {item.facts?.length ? (
+              <div>
+                <h2 className="text-xl font-semibold">Параметры объекта</h2>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {item.facts.map((fact) => (
+                    <Card key={fact} className="shadow-none">
+                      <p className="text-sm font-semibold leading-6">{fact}</p>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            {item.reporting ? (
+              <div>
+                <h2 className="text-xl font-semibold">Отчётность</h2>
+                <p className="mt-3 leading-8 text-muted">{item.reporting}</p>
+              </div>
+            ) : null}
             {item.quote ? (
               <blockquote className="border-l-4 border-accent pl-4 text-lg italic leading-8 text-muted">
                 «{item.quote}»
@@ -97,6 +115,29 @@ export default async function CaseStudyPage({ params }: Props) {
           </div>
         </div>
       </Section>
+
+      {item.photos?.length ? (
+        <Section>
+          <SectionHeading title="Фото с объекта" text="Зоны работ, которые фиксируются в регламенте и фотоотчёте." />
+          <div className="grid gap-3 md:grid-cols-3 lg:gap-4">
+            {item.photos.map((photo, index) => (
+              <figure
+                key={`${photo.src}-${index}`}
+                className="overflow-hidden rounded-lg border border-border bg-surface shadow-soft"
+              >
+                <Image
+                  src={encodeURI(photo.src)}
+                  alt={photo.alt}
+                  width={900}
+                  height={675}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="aspect-[16/10] h-auto w-full object-cover"
+                />
+              </figure>
+            ))}
+          </div>
+        </Section>
+      ) : null}
 
       <Section>
         <SectionHeading title="Следующий шаг" />

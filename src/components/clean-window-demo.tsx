@@ -46,12 +46,12 @@ export function CleanWindowDemo({
   }, [area, selectedObjectType, schedule]);
 
   return (
-    <div className="info-glint rounded-xl border border-border bg-surface p-4 shadow-soft">
+    <div className="info-glint min-w-0 rounded-xl border border-border bg-surface p-4 shadow-soft">
       <div className="mb-4 flex items-start gap-3">
         <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-accent/10 text-accent">
           <Calculator className="h-5 w-5" />
         </span>
-        <div>
+        <div className="min-w-0">
           <p className="text-sm font-semibold text-accent">Быстрый расчет объекта</p>
           <p className="text-xs leading-5 text-muted">
             {hintText ??
@@ -62,9 +62,9 @@ export function CleanWindowDemo({
 
       <div className="grid gap-4">
         <label className="grid gap-2">
-          <div className="flex items-center justify-between gap-3 text-sm">
+          <div className="flex min-w-0 items-center justify-between gap-3 text-sm">
             <span className="font-semibold">Площадь объекта</span>
-            <span className="rounded-lg border border-border bg-background px-2 py-1 font-bold text-foreground">{area} м2</span>
+            <span className="shrink-0 rounded-lg border border-border bg-background px-2 py-1 font-bold text-foreground">{area} м2</span>
           </div>
           <input
             type="range"
@@ -89,13 +89,13 @@ export function CleanWindowDemo({
         ) : (
           <div className="grid gap-2">
             <p className="text-sm font-semibold">Тип объекта</p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
               {objectTypes.map((item) => (
                 <button
                   key={item.id}
                   type="button"
                   className={[
-                    "btn-kinetic rounded-lg border px-2 py-2 text-xs font-semibold",
+                    "btn-kinetic min-w-0 rounded-lg border px-2 py-2 text-xs font-semibold",
                     objectType === item.id ? "border-accent bg-accent text-white" : "border-border bg-background text-muted"
                   ].join(" ")}
                   onClick={() => setObjectType(item.id)}
@@ -109,13 +109,13 @@ export function CleanWindowDemo({
 
         <div className="grid gap-2">
           <p className="text-sm font-semibold">График</p>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             {schedules.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 className={[
-                  "btn-kinetic rounded-lg border px-2 py-2 text-xs font-semibold",
+                  "btn-kinetic min-w-0 rounded-lg border px-2 py-2 text-xs font-semibold",
                   schedule === item.id ? "border-accent bg-accent text-white" : "border-border bg-background text-muted"
                 ].join(" ")}
                 onClick={() => setSchedule(item.id)}

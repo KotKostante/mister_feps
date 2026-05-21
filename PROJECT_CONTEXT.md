@@ -1,102 +1,84 @@
 # Project Context
 
-Last updated: 2026-05-18 07:16:35 BST
+Last updated: 2026-05-20 16:48:23 BST
 
 ## Current State
 
 - Project: Mister FAPC B2B cleaning website.
 - Stack: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS.
 - Local dev URL: `http://localhost:3000`.
-- Dev server is running from this session.
-- `curl -I http://localhost:3000` returned `200 OK`.
-- System `node` is not available in this shell; use portable Node:
+- Dev server is running on port `3000` (`next-server`, pid `3944`).
+- Use portable Node if system Node/npm is unavailable:
   ```bash
   PATH="$HOME/.local/share/codex-node/current/bin:$PATH"
   ```
 
 ## What Changed In This Session
 
-- Investigated the user's reported JSON error after copying the site folder to a flash drive.
-- Confirmed these JSON files parse correctly and are not corrupted:
-  - `package.json`
-  - `package-lock.json`
-  - `tsconfig.json`
-- Found the real issue: copied `node_modules` was incomplete and the flash drive/filesystem rejects npm symlinks.
-- `npm install` failed with:
-  ```text
-  EPERM: operation not permitted, symlink '../@babel/parser/bin/babel-parser.js' -> 'node_modules/.bin/parser'
-  ```
-- Reinstalled dependencies with:
+- Reviewed project startup context after `привет`: `AGENTS.md`, `README.md`, `package.json`, main configs, `PROJECT_CONTEXT.md`, project tree, and main `src/` structure.
+- Started the local Next.js dev server. System `npm` was unavailable, so the server was started with portable Node:
   ```bash
-  PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm install --no-bin-links --ignore-scripts
+  PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm run dev
   ```
-- Updated `package.json` scripts to call Next.js and ESLint directly through `node`, avoiding `node_modules/.bin`:
-  - `npm run dev`
-  - `npm run build`
-  - `npm run start`
-  - `npm run lint`
+- Replaced the unsuitable hero image for `/uslugi/uborka-torgovyh-setey/`.
+- First generated a spacious shopping-mall cleaning hero, but the worker looked too unlike existing site photos.
+- Generated a second image with a more consistent Mister FAPC-style worker: middle-aged woman, red shirt, blue apron/overalls, floor scrubber in a shopping mall corridor.
+- Saved the accepted second image as:
+  - `public/services/retail-mall-cleaning-generated-2.webp`
+- Updated `src/data/site.ts` so the `retail` photo set uses the new image first; this makes it the hero image for “Уборка торговых сетей и ТЦ”.
+- `public/services/retail-mall-cleaning-generated-1.webp` also exists from the first attempt but is no longer referenced.
 
 ## Important Changed Files
 
-- `package.json`
-- `PROJECT_CONTEXT.md`
+- `src/data/site.ts`
+- `public/services/retail-mall-cleaning-generated-1.webp` (generated but not currently referenced)
+- `public/services/retail-mall-cleaning-generated-2.webp` (active hero image)
+- `next-env.d.ts` shows as modified after running the Next dev server; likely auto-generated/dev-server metadata.
 
 ## Commands Run
 
 ```bash
 pwd
-rg --files -g '!*node_modules*' | head -200
-ls -la
-sed -n '1,220p' package.json
-sed -n '1,220p' README.md
-sed -n '1,220p' next.config.mjs
-sed -n '1,220p' tsconfig.json
-sed -n '1,220p' eslint.config.mjs
-sed -n '1,220p' tailwind.config.ts
-sed -n '1,220p' PROJECT_CONTEXT.md
-node -e "..." # failed because system node was not found
-PATH="$HOME/.local/share/codex-node/current/bin:$PATH" node -v
-PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm -v
-PATH="$HOME/.local/share/codex-node/current/bin:$PATH" node -e "..." # JSON parse check
+rg --files
+sed -n '...' AGENTS.md README.md package.json next.config.mjs tsconfig.json tailwind.config.ts eslint.config.mjs PROJECT_CONTEXT.md
+find src -maxdepth 3 -type f | sort
+find src -maxdepth 3 -type d | sort
+ss -ltnp 'sport = :3000'
+curl -I --max-time 5 http://localhost:3000
+npm run dev
 PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm run dev
-ls -la node_modules
-ls -la node_modules/.bin
-du -sh node_modules package-lock.json package.json
-PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm install
-PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm install --no-bin-links
-PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm install --no-bin-links --ignore-scripts
-PATH="$HOME/.local/share/codex-node/current/bin:$PATH" node node_modules/next/dist/bin/next dev --webpack
-curl -I http://localhost:3000
-curl -I http://localhost:3000/uslugi/
-curl -I http://localhost:3000/contacts/
-PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm run lint
-PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm run build
+rg -n "torg|retail|торгов|ТЦ|сет" src/data src/app src/components
+find public/services -maxdepth 2 -type f | sort
+viewed local image assets for retail/service references
+python3 snippets with PIL to convert generated PNG files to WebP assets
+curl -I --max-time 10 http://localhost:3000/services/retail-mall-cleaning-generated-2.webp
+curl -L --max-time 15 http://localhost:3000/uslugi/uborka-torgovyh-setey/
+git diff -- src/data/site.ts
+git status --short -- .
 date '+%Y-%m-%d %H:%M:%S %Z'
 ```
 
 ## Verification Results
 
-- Local site is open at `http://localhost:3000`.
-- `/`, `/uslugi/`, and `/contacts/` returned `200 OK`.
-- `npm run build` passed successfully.
-- `npm run lint` passed with 0 errors.
-- Lint still reports 2 existing warnings about `<img>` usage:
-  - `src/components/sections/marketing-hero.tsx`
-  - `src/components/sections/why-us-split.tsx`
+- Local site responds with `200 OK` at `http://localhost:3000`.
+- New active hero asset responds with `200 OK`:
+  - `http://localhost:3000/services/retail-mall-cleaning-generated-2.webp`
+- `/uslugi/uborka-torgovyh-setey/` preloads `/services/retail-mall-cleaning-generated-2.webp`, confirming the page is using the new image.
 
 ## Known Issues / Notes
 
-- The flash drive/filesystem appears not to support npm symlink creation in `node_modules/.bin`.
-- Because of that, plain dependency installs can fail unless using `--no-bin-links --ignore-scripts`, or unless the project is moved to a normal Linux filesystem.
-- `node_modules` is very large after reinstalling dependencies.
-- `npm install --no-bin-links --ignore-scripts` reported 1 high severity vulnerability via npm audit; no audit fix was applied.
-- If the current dev process stops, restart with:
-  ```bash
-  PATH="$HOME/.local/share/codex-node/current/bin:$PATH" npm run dev
-  ```
+- System `npm` is not available; use portable Node path for npm commands.
+- Dev server remains running on port `3000`.
+- `git status --short -- .` currently shows:
+  - `M next-env.d.ts`
+  - `M src/data/site.ts`
+  - `?? public/services/retail-mall-cleaning-generated-1.webp`
+  - `?? public/services/retail-mall-cleaning-generated-2.webp`
+- The first generated retail hero (`retail-mall-cleaning-generated-1.webp`) is unused and can be removed later if the user wants cleanup.
+- No full `npm run lint` or `npm run build` was run after the image swap; change is limited to data reference plus static assets.
 
 ## Recommended Next Steps
 
-- Prefer working from an internal Linux disk or another filesystem that supports symlinks.
-- If continuing from the flash drive, keep the direct `node ...` npm scripts in `package.json`.
-- Do a quick visual check in the browser at `http://localhost:3000`.
+- Browser-check `/uslugi/uborka-torgovyh-setey/` visually on desktop and mobile to confirm the crop works with the hero text and pricing card.
+- If the new generated worker still feels imperfect, generate another variant using the accepted second image as the direction.
+- Optionally remove the unused first generated image after approval.

@@ -21,7 +21,7 @@ import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Клининговая компания для бизнеса — договор, SLA, контроль | Mister FAPC",
-  description: "Mister FAPC — профессиональный клининг офисов, складов и производств. Договор, чек-листы, оплата после приёмки. 12 лет работы, 420 сотрудников.",
+  description: "Mister FAPC — профессиональный клининг офисов, складов и производств. Договор, чек-листы, оплата после приёмки. 15 лет работы с 2012 года, 420 сотрудников.",
   alternates: { canonical: absoluteUrl("/") }
 };
 
@@ -44,7 +44,7 @@ export default function HomePage() {
         }
         subtitle="Mister FAPC — клининговая компания полного цикла для офисов, складов и производств. Берём на себя уборку, график, команду и отчётность. Договор с оплатой после приёмки."
         primaryCta={{ href: "/contacts/#lead-form", label: "Рассчитать стоимость уборки" }}
-        secondaryCta={{ href: phoneHref(brand.mainPhone), label: brand.mainPhone }}
+        secondaryCta={{ href: phoneHref(brand.mainPhone), label: "Позвонить" }}
         showStats
         right={<HeroRightProduct />}
       />

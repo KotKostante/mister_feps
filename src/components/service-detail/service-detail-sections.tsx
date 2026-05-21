@@ -39,12 +39,12 @@ const OFFICE_INCLUDES_VISUAL: { title: string; icon: LucideIcon }[] = [
 ];
 
 /** Мини-оглавление для длинной посадочной услуги */
-function ServiceDetailAnchorNav() {
+function ServiceDetailAnchorNav({ showCases }: { showCases: boolean }) {
   const links = [
     { href: "#service-includes", label: "Состав" },
     { href: "#service-pricing", label: "Цена" },
     { href: "#service-factors", label: "Факторы" },
-    { href: "#service-cases", label: "Кейсы" },
+    ...(showCases ? [{ href: "#service-cases", label: "Кейсы" }] : []),
     { href: "#service-faq", label: "Вопросы" }
   ];
   return (
@@ -82,34 +82,33 @@ export function ServiceDetailSections({
 }) {
   const audienceBlocks = service.audience ?? DEFAULT_SERVICE_AUDIENCE;
   const clientResultPairs = service.clientResults ?? DEFAULT_CLIENT_RESULTS;
-  const hasGallery = Boolean(service.gallery?.length);
+  const galleryItems = service.gallery ?? [];
+  const showGallery = galleryItems.length > 1;
   const includesVisualSrc = service.heroCover ?? service.pricingSectionImage;
+  const relevantCases = casesListForPage ?? [];
 
   return (
     <>
       <Container className="pb-2 pt-6 sm:pt-8">
-        <ServiceDetailAnchorNav />
+        <ServiceDetailAnchorNav showCases={relevantCases.length > 0} />
       </Container>
 
-      {service.gallery && service.gallery.length > 0 ? (
+      {showGallery ? (
         <Section id="service-gallery">
-          <SectionHeading
-            title="Фото с объектов"
-            text={`Подходящие фото из выполненных работ по направлению «${service.shortTitle}».`}
-          />
-          <div className="grid gap-4 sm:grid-cols-2">
-            {service.gallery.map((item, index) => (
+          <SectionHeading title="Фото с объектов" />
+          <div className="grid gap-3 md:grid-cols-3 lg:gap-4">
+            {galleryItems.map((item, index) => (
               <figure
                 key={`${item.src}-${index}`}
-                className="group overflow-hidden rounded-xl border border-border bg-surface shadow-soft transition hover:border-accent/40"
+                className="group overflow-hidden rounded-lg border border-border bg-surface shadow-soft transition hover:border-accent/40"
               >
                 <Image
                   src={encodeURI(item.src)}
                   alt={item.alt}
                   width={900}
                   height={675}
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                  className="aspect-[4/3] h-auto w-full object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="aspect-[16/10] h-auto w-full object-cover transition duration-300 group-hover:scale-[1.025]"
                 />
               </figure>
             ))}
@@ -117,9 +116,9 @@ export function ServiceDetailSections({
         </Section>
       ) : null}
 
-      <Section id="service-includes" className={cn("scroll-mt-28", hasGallery ? "bg-surface" : undefined)}>
+      <Section id="service-includes" className={cn("scroll-mt-28", showGallery ? "bg-surface" : undefined)}>
         <SectionHeading title="Что входит в услугу" text="Состав работ фиксируется до старта и становится частью регламента приемки." />
-        {!hasGallery && includesVisualSrc ? (
+        {!showGallery && includesVisualSrc ? (
           <div className="grid gap-8 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:items-start">
             <figure className="relative mx-auto aspect-[4/3] w-full max-w-[400px] overflow-hidden rounded-2xl border border-border shadow-soft lg:mx-0 lg:max-w-none">
               <Image
@@ -149,7 +148,7 @@ export function ServiceDetailSections({
         )}
       </Section>
 
-      <Section id="service-audience" className={hasGallery ? undefined : "bg-surface"}>
+      <Section id="service-audience" className={showGallery ? undefined : "bg-surface"}>
         <SectionHeading title="Кому подходит" text="Типовые объекты, для которых услуга закрывает задачу «чисто, стабильно, по документам»." />
         <div className="grid gap-4 md:grid-cols-3">
           {audienceBlocks.map((block, index) => (
@@ -158,7 +157,7 @@ export function ServiceDetailSections({
         </div>
       </Section>
 
-      <Section id="service-results" className={hasGallery ? "bg-surface" : undefined}>
+      <Section id="service-results" className={showGallery ? "bg-surface" : undefined}>
         <SectionHeading title="Результат для клиента" text="Что меняется после запуска сервиса по договору." />
         <div className="grid gap-4 md:grid-cols-2">
           {clientResultPairs.map(([was, now], index) => (
@@ -167,12 +166,12 @@ export function ServiceDetailSections({
         </div>
       </Section>
 
-      <Section id="service-standards" className={hasGallery ? undefined : "bg-surface"}>
+      <Section id="service-standards" className={showGallery ? undefined : "bg-surface"}>
         <SectionHeading title="Стандарт и регламент" text="Оборудование, химия и SLA согласуются до выхода на объект." />
         <AdvantagesList />
       </Section>
 
-      <Section id="service-pricing" className={cn("scroll-mt-28", hasGallery ? "bg-surface" : undefined)}>
+      <Section id="service-pricing" className={cn("scroll-mt-28", showGallery ? "bg-surface" : undefined)}>
         <div className={cn("grid gap-8 lg:items-stretch lg:gap-10", service.pricingSectionImage ? "lg:grid-cols-[minmax(200px,240px)_minmax(0,1fr)]" : "lg:grid-cols-1")}>
           {service.pricingSectionImage ? (
             <figure className="relative mx-auto aspect-[3/5] w-full max-w-[240px] shrink-0 overflow-hidden rounded-2xl border border-border shadow-soft lg:mx-0 lg:aspect-auto lg:h-full lg:min-h-0 lg:w-[240px] lg:max-w-none">
@@ -216,7 +215,7 @@ export function ServiceDetailSections({
         </div>
       </Section>
 
-      <Section id="service-factors" className={cn("scroll-mt-28", hasGallery ? undefined : "bg-surface")}>
+      <Section id="service-factors" className={cn("scroll-mt-28", showGallery ? undefined : "bg-surface")}>
         <SectionHeading title="От чего зависит расчет" text="Показываем факторы заранее, чтобы смета была прозрачной для закупок, АХО и финансового блока." />
         <div className="overflow-x-auto rounded-xl border border-border bg-background shadow-soft">
           <table className="w-full min-w-[520px] border-collapse text-left text-sm">
@@ -264,12 +263,14 @@ export function ServiceDetailSections({
         <SectionHeading title="Работаем в городах" text="Выберите город — откроется страница услуги с локальным телефоном и расчётом." />
         <CityGrid />
       </Section>
-      <CasesSection
-        sectionId="service-cases"
-        title={`Кейсы по услуге «${service.title}»`}
-        intro="Реальные объекты, площади и график — цифры в карточках, а не абстрактные обещания."
-        casesList={casesListForPage}
-      />
+      {relevantCases.length > 0 ? (
+        <CasesSection
+          sectionId="service-cases"
+          title={`Кейсы по услуге «${service.title}»`}
+          intro="Реальные объекты, площади и график — цифры в карточках, а не абстрактные обещания."
+          casesList={relevantCases}
+        />
+      ) : null}
       {city ? <CityContactsSection city={city} /> : null}
       <ReviewsSection />
       <FaqSection sectionId="service-faq" items={pageFaq} />

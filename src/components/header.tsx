@@ -63,8 +63,16 @@ export function Header() {
       <Container className="flex min-h-[56px] items-center justify-between gap-3">
 
         {/* Лого */}
-        <Link href="/" className="focus-ring rounded-lg shrink-0">
-          <Logo />
+        <Link href="/" className="focus-ring flex shrink-0 items-center gap-3 rounded-lg">
+          <Logo className="w-[68px] sm:w-[72px]" />
+          <span className="hidden max-w-[190px] leading-tight sm:block">
+            <span className="block text-[10px] font-bold uppercase text-foreground">
+              Fast and professional cleaning
+            </span>
+            <span className="block text-[10px] font-medium text-muted">
+              Быстрая профессиональная уборка
+            </span>
+          </span>
         </Link>
 
         {/* Навигация: основное + «Ещё» */}

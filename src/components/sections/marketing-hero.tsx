@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { BadgeCheck, ExternalLink, Star } from "lucide-react";
+import Image from "next/image";
 import { AnimatedNumber } from "@/components/animated-number";
 import { CleanWindowDemo } from "@/components/clean-window-demo";
 import { ButtonLink } from "@/components/ui";
@@ -30,9 +31,12 @@ export function MarketingHero({
   return (
     <section className="relative isolate overflow-hidden">
       <div className="absolute inset-x-0 top-0 -z-10 h-[1100px] lg:inset-0 lg:h-auto">
-        <img
+        <Image
           src={encodeURI(MARKETING_HERO_BG)}
           alt=""
+          fill
+          priority
+          sizes="100vw"
           className="hero-bg-img h-full w-full object-cover"
           aria-hidden="true"
         />
@@ -50,7 +54,7 @@ export function MarketingHero({
       <div className="pointer-events-none absolute -right-40 bottom-0 -z-10 h-[400px] w-[400px] rounded-full bg-accent/12 blur-[100px]" aria-hidden="true" />
 
       <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-16 lg:px-8 lg:py-32">
-        <div>
+        <div className="w-full min-w-0 max-w-full">
           <div data-hero-animate="eyebrow">
             <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent shadow-[0_2px_20px_rgba(0,0,0,0.4)] backdrop-blur-sm">
               {eyebrow}
@@ -58,25 +62,25 @@ export function MarketingHero({
           </div>
           <h1
             data-hero-animate="title"
-            className="text-hero-readable mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.5rem]"
+            className="text-hero-readable mt-6 max-w-full break-words text-3xl font-bold leading-[1.1] tracking-tight text-white min-[420px]:text-4xl sm:text-5xl lg:text-[3.5rem]"
           >
             {title}
           </h1>
           <p data-hero-animate="text" className="text-hero-readable-soft mt-6 max-w-xl text-lg leading-8 text-white/85">
             {subtitle}
           </p>
-          <div data-hero-animate="cta" className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href={primaryCta.href}>{primaryCta.label}</ButtonLink>
+          <div data-hero-animate="cta" className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <ButtonLink className="w-full sm:w-auto" href={primaryCta.href}>{primaryCta.label}</ButtonLink>
             <a
               href={secondaryCta.href}
-              className="text-hero-readable inline-flex items-center rounded-xl border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_8px_24px_hsl(var(--primary)/0.35)] transition hover:bg-primary/90"
+              className="text-hero-readable-soft inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/20 bg-white/8 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/40 hover:bg-white/12 sm:w-auto"
             >
               {secondaryCta.label}
             </a>
           </div>
           {showStats ? <HeroTrustStats /> : null}
         </div>
-        <div data-hero-animate="panel">{right}</div>
+        <div data-hero-animate="panel" className="w-full min-w-0 max-w-full">{right}</div>
       </div>
     </section>
   );
@@ -85,7 +89,7 @@ export function MarketingHero({
 /** Цифры под текстом героя — один раз описаны */
 export function HeroTrustStats() {
   return (
-    <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-4">
       {trustStats.map((stat, index) => (
         <div
           key={stat.value}
@@ -95,7 +99,7 @@ export function HeroTrustStats() {
           <p className="text-hero-readable text-2xl font-bold text-white">
             {index === 0 ? (
               <>
-                <AnimatedNumber value={12} /> лет
+                <AnimatedNumber value={15} /> лет
               </>
             ) : null}
             {index === 1 ? <AnimatedNumber value={97} suffix="%" /> : null}

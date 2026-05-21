@@ -5,6 +5,7 @@ import type { City, Service } from "@/data/site";
 import { brand, cities } from "@/data/site";
 import { demoLockForServiceSlug } from "@/lib/pricing-demo-lock";
 import { cn, phoneHref } from "@/lib/utils";
+import Image from "next/image";
 
 /** Герой страницы услуги с heroCover и калькулятором — как `/uslugi/uborka-ofisov/`, с опциональным городом для комбо-URL. */
 export function ServiceHeroDark({ service, city }: { service: Service; city?: City }) {
@@ -49,8 +50,8 @@ export function ServiceHeroDark({ service, city }: { service: Service; city?: Ci
               ]
         }
       />
-      <div className={cn("grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-start lg:gap-10", hasHeroCover && "mt-6")}>
-        <div>
+      <div className={cn("grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:items-start lg:gap-10", hasHeroCover && "mt-6")}>
+        <div className="w-full min-w-0 max-w-full">
           {hasHeroCover ? (
             <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent shadow-[0_2px_20px_rgba(0,0,0,0.4)] backdrop-blur-sm">
               Услуга для юридических лиц
@@ -60,7 +61,7 @@ export function ServiceHeroDark({ service, city }: { service: Service; city?: Ci
           )}
           <h1
             className={cn(
-              "mt-5 text-4xl leading-tight sm:text-5xl",
+              "mt-5 max-w-full break-words text-3xl leading-tight min-[420px]:text-4xl sm:text-5xl",
               hasHeroCover ? "text-hero-readable font-bold tracking-tight text-white lg:text-[3.25rem]" : "font-semibold"
             )}
           >
@@ -88,17 +89,17 @@ export function ServiceHeroDark({ service, city }: { service: Service; city?: Ci
               service.description
             )}
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <ButtonLink href="/contacts/#lead-form">Рассчитать стоимость</ButtonLink>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <ButtonLink className="w-full sm:w-auto" href="/contacts/#lead-form">Рассчитать стоимость</ButtonLink>
             {hasHeroCover ? (
               <a
                 href={secondaryPhone}
-                className="text-hero-readable-soft inline-flex items-center rounded-xl border border-white/20 bg-white/8 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/40 hover:bg-white/12"
+                className="text-hero-readable-soft inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/20 bg-white/8 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/40 hover:bg-white/12 sm:w-auto"
               >
                 Позвонить в офис
               </a>
             ) : (
-              <ButtonLink href={secondaryPhone} variant="secondary">
+              <ButtonLink className="w-full sm:w-auto" href={secondaryPhone} variant="secondary">
                 Позвонить в офис
               </ButtonLink>
             )}
@@ -111,9 +112,9 @@ export function ServiceHeroDark({ service, city }: { service: Service; city?: Ci
           >
             Расчёт в вашем городе
           </p>
-          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-4">
             {cities.slice(0, 8).map((c) => (
-              <a key={c.slug} href={chipHref(c.slug)} className={cityChipClass(c.slug)}>
+              <a key={c.slug} href={chipHref(c.slug)} className={cn("min-w-0", cityChipClass(c.slug))}>
                 {c.name}
               </a>
             ))}
@@ -121,8 +122,8 @@ export function ServiceHeroDark({ service, city }: { service: Service; city?: Ci
         </div>
         <div
           className={cn(
-            "flex flex-col gap-4",
-            hasHeroCover && "rounded-2xl border border-border bg-background/90 p-6 shadow-xl backdrop-blur-xl"
+            "flex w-full min-w-0 max-w-full flex-col gap-4",
+            hasHeroCover && "rounded-2xl border border-border bg-background/90 p-4 shadow-xl backdrop-blur-xl sm:p-6"
           )}
         >
           <div>
@@ -148,10 +149,12 @@ export function ServiceHeroDark({ service, city }: { service: Service; city?: Ci
   return (
     <section className="relative isolate overflow-hidden py-20 sm:py-24 lg:py-32" data-animate-section>
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[1100px] lg:inset-0 lg:h-auto">
-        {/* eslint-disable-next-line @next/next/no-img-element -- фон первого экрана */}
-        <img
+        <Image
           src={encodeURI(service.heroCover)}
           alt=""
+          fill
+          priority
+          sizes="100vw"
           className="hero-bg-img h-full w-full object-cover"
           aria-hidden
         />

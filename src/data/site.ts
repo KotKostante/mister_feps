@@ -87,13 +87,13 @@ export const brand = {
 };
 
 export const trustStats = [
-  { value: "12 лет", label: "на рынке клининга" },
+  { value: "15 лет", label: "на рынке клининга с 2012 года" },
   { value: "97%", label: "клиентов обращаются повторно" },
   { value: "420", label: "сотрудников в команде" },
   { value: "1 250 000 м2", label: "площадей в работе" }
 ];
 
-/** Плашка под героем на главной: добавьте `src` (полный URL CDN или `/logos/….svg` из public). Без `src` — текст названия. */
+/** Плашка под героем на главной: добавьте `src` (полный URL CDN или путь к SVG-логотипу из public). Без `src` — текст названия. */
 export type TrustClientLogo = {
   alt: string;
   src?: string;
@@ -101,11 +101,11 @@ export type TrustClientLogo = {
 };
 
 export const trustClientLogos: TrustClientLogo[] = [
-  // Пример: { alt: "Яндекс.Маркет", src: "https://cdn.example.com/clients/yandex.svg", href: "/cases/..." },
-  { alt: "Яндекс.Маркет", href: "/cases/yandex-market-sortcenter/" },
-  { alt: "Zolla", href: "/cases/zolla-set/" },
-  { alt: "МТС", href: "/cases/mts-offices/" },
-  { alt: "Бизнес-парк", href: "/cases/biznes-park-tyumen/" }
+  // Пример: { alt: "Название объекта", src: "https://cdn.example.com/clients/client.svg", href: "/cases/..." },
+  { alt: "Яндекс Маркет", href: "/cases/yandex-market-sortcenter/" },
+  { alt: "Zolla", href: "/cases/zolla-retail-network/" },
+  { alt: "БЦ Первомайский", href: "/cases/bc-pervomayskiy/" },
+  { alt: "ЖК Сибирский сад", href: "/cases/zhk-sibirskiy-sad/" }
 ];
 
 export const cities: City[] = [
@@ -151,7 +151,7 @@ export const cities: City[] = [
     prepositional: "Тюмени",
     genitive: "Тюмени",
     address: "Одесская 48а",
-    phone: "+7 (3452) 69-23-68",
+    phone: "+7 (967) 555-80-23",
     area: "Тюмень и область",
     lat: 57.152,
     lon: 65.527,
@@ -216,46 +216,52 @@ export const primaryCitySlugs = ["ekaterinburg", "perm", "chelyabinsk", "tyumen"
 type ServiceVisuals = Pick<Service, "heroCover" | "pricingSectionImage" | "whyUsSplitImage" | "gallery">;
 
 const servicePhotoSets = {
-  office: ["/services/office-modern-3.webp", "/services/office-cleaning-1.webp", "/services/office-cleaning-2.webp"],
-  warehouse: ["/services/warehouse-cleaning-hero-enhanced.webp", "/services/warehouse-cleaning-2.webp", "/services/warehouse-cleaning-3.webp"],
-  industrial: ["/services/industrial-dust-1.webp", "/services/industrial-dust-2.webp", "/services/industrial-dust-3.webp"],
-  medical: ["/services/commercial-5.webp", "/services/commercial-6.webp", "/services/wet-zone-cleaning-2.webp"],
-  government: ["/services/team-uniform-1.webp", "/services/commercial-1.webp", "/services/commercial-2.webp"],
-  general: ["/services/general-corridor-1.webp", "/services/general-corridor-2.webp", "/services/general-corridor-3.webp"],
-  postRenovation: ["/services/post-renovation-1.webp", "/services/post-renovation-2.webp", "/services/post-renovation-3.webp"],
-  parking: ["/services/parking-1.webp", "/services/parking-2.webp", "/services/parking-3.webp"],
-  floor: ["/services/floor-cleaning-1.webp", "/services/floor-cleaning-2.webp", "/services/post-construction-team-3.webp"],
-  upholstery: ["/services/upholstery-cleaning-1.webp", "/services/upholstery-cleaning-2.webp", "/services/upholstery-cleaning-3.webp"],
-  windows: ["/services/window-facade-4.webp", "/services/window-facade-5.webp", "/services/window-facade-6.webp"],
-  kitchen: ["/services/kitchen-cleaning-1.webp", "/services/commercial-5.webp", "/services/commercial-6.webp"],
-  retail: ["/services/retail-cleaning-1.webp", "/services/commercial-5.webp", "/services/commercial-6.webp"],
-  residential: ["/services/residential-common-3.webp", "/services/general-corridor-2.webp", "/services/general-corridor-3.webp"],
-  sports: ["/services/industrial-cleaning-1.webp", "/services/floor-cleaning-1.webp", "/services/floor-cleaning-2.webp"],
-  wetZone: ["/services/wet-zone-cleaning-1.webp", "/services/wet-zone-cleaning-2.webp", "/services/general-cleaning-1.webp"],
-  hotel: ["/services/hotel-cleaning-generated-1.webp", "/services/team-uniform-1.webp", "/services/general-corridor-1.webp"],
-  fire: ["/services/fire-cleaning-generated-1.webp", "/services/emergency-1.webp", "/services/post-renovation-2.webp"],
-  flood: ["/services/flood-cleaning-generated-1.webp", "/services/emergency-2.webp", "/services/wet-zone-cleaning-1.webp"],
-  cinema: ["/services/cinema-cleaning-generated-1.webp", "/services/upholstery-cleaning-2.webp", "/services/carpet-cleaning-generated-1.webp"],
-  carpet: ["/services/carpet-cleaning-generated-1.webp", "/services/upholstery-cleaning-1.webp", "/services/floor-cleaning-2.webp"],
-  curtain: ["/services/curtain-cleaning-generated-1.webp", "/services/commercial-4.webp", "/services/team-uniform-1.webp"],
-  paving: ["/services/paving-cleaning-generated-1.webp", "/services/parking-2.webp", "/services/floor-cleaning-1.webp"],
-  transport: ["/services/transport-cleaning-generated-1.webp", "/services/upholstery-cleaning-3.webp", "/services/general-cleaning-2.webp"],
-  fuel: ["/services/fuel-cleaning-generated-1.webp", "/services/industrial-cleaning-1.webp", "/services/parking-1.webp"],
-  terminal: ["/services/terminal-cleaning-generated-1.webp", "/services/floor-cleaning-1.webp", "/services/commercial-3.webp"],
-  school: ["/services/school-cleaning-generated-1.webp", "/services/general-corridor-2.webp", "/services/commercial-5.webp"],
-  event: ["/services/event-cleaning-generated-1.webp", "/services/commercial-1.webp", "/services/floor-cleaning-2.webp"]
-} satisfies Record<string, [string, string, string]>;
+  office: ["/services/client/client-office-table-cleaning-1.webp", "/services/client/client-office-mop-1.webp", "/services/client/client-office-corridor-1.webp"],
+  warehouse: ["/services/client/client-warehouse-machine-1.webp", "/services/client/client-warehouse-machine-2.webp", "/services/client/client-warehouse-machine-3.webp"],
+  industrial: ["/services/client/client-cleanroom-mopping-1.webp", "/services/client/client-cleanroom-mopping-2.webp", "/services/client/client-laundry-production-1.webp"],
+  highDust: ["/services/industrial-dust-removal-generated-1.webp", "/services/industrial-high-dust-generated-2.webp", "/services/industrial-high-dust-generated-3.webp"],
+  general: ["/services/client/client-corridor-vacuum-1.webp", "/services/client/client-office-corridor-1.webp", "/services/client/client-cleanroom-mopping-1.webp"],
+  parking: ["/services/client/client-parking-machine-1.webp", "/services/client/client-parking-machine-2.webp", "/services/client/client-parking-machine-3.webp"],
+  floor: ["/services/client/client-retail-floor-machine-1.webp", "/services/client/client-warehouse-machine-1.webp", "/services/floor-cleaning-generated-3.webp"],
+  upholstery: ["/services/client/client-lounge-upholstery-1.webp", "/services/upholstery-cleaning-generated-2.webp", "/services/upholstery-cleaning-generated-3.webp"],
+  windows: ["/services/client/client-facade-window-1.webp", "/services/client/client-facade-window-2.webp", "/services/window-cleaning-generated-3.webp"],
+  kitchen: ["/services/client/client-food-counter-cleaning-1.webp", "/services/client/client-laundry-production-1.webp", "/services/kitchen-cleaning-generated-3.webp"],
+  retail: ["/services/client/client-retail-floor-machine-1.webp", "/services/client/client-retail-fridge-cleaning-1.webp", "/services/client/client-retail-store-1.webp"],
+  residential: ["/services/client/client-sibir-entry-mop-1.webp", "/services/client/client-sibir-mailboxes-1.webp", "/services/client/client-residential-corridor-1.webp"],
+  renovation: ["/services/post-renovation-cleaning-generated-1.webp", "/services/post-renovation-generated-2.webp", "/services/post-renovation-generated-3.webp"],
+  equipment: ["/services/industrial-equipment-cleaning-generated-1.webp", "/services/industrial-equipment-cleaning-generated-2.webp", "/services/industrial-equipment-cleaning-generated-3.webp"],
+  hotel: ["/services/hotel-cleaning-generated-1.webp", "/services/hotel-cleaning-generated-2.webp", "/services/hotel-cleaning-generated-3.webp"],
+  medical: ["/services/medical-cleaning-generated-1.webp", "/services/medical-cleaning-generated-2.webp", "/services/medical-cleaning-generated-3.webp"],
+  sports: ["/services/sports-cleaning-generated-1.webp", "/services/sports-cleaning-generated-2.webp", "/services/sports-cleaning-generated-3.webp"],
+  wetZone: ["/services/wet-zone-cleaning-generated-1.webp", "/services/wet-zone-cleaning-1.webp", "/services/wet-zone-cleaning-2.webp"],
+  government: ["/services/government-cleaning-generated-1.webp", "/services/government-cleaning-generated-2.webp", "/services/government-cleaning-generated-3.webp"],
+  fire: ["/services/fire-cleaning-generated-1.webp", "/services/fire-cleaning-generated-2.webp", "/services/fire-cleaning-generated-3.webp"],
+  flood: ["/services/flood-cleaning-generated-1.webp", "/services/flood-cleaning-generated-2.webp", "/services/flood-cleaning-generated-3.webp"],
+  cinema: ["/services/cinema-cleaning-generated-1.webp", "/services/carpet-cleaning-generated-1.webp", "/services/cinema-cleaning-generated-2.webp"],
+  carpet: ["/services/carpet-cleaning-generated-1.webp", "/services/carpet-cleaning-generated-2.webp", "/services/carpet-cleaning-generated-3.webp"],
+  curtain: ["/services/curtain-cleaning-generated-1.webp", "/services/curtain-cleaning-generated-2.webp", "/services/curtain-cleaning-generated-3.webp"],
+  paving: ["/services/paving-cleaning-generated-1.webp", "/services/paving-cleaning-generated-2.webp", "/services/paving-cleaning-generated-3.webp"],
+  transport: ["/services/transport-cleaning-generated-1.webp", "/services/transport-cleaning-generated-2.webp", "/services/transport-cleaning-generated-3.webp"],
+  fuel: ["/services/fuel-cleaning-generated-1.webp", "/services/fuel-cleaning-generated-2.webp", "/services/fuel-cleaning-generated-3.webp"],
+  terminal: ["/services/terminal-cleaning-generated-1.webp", "/services/terminal-cleaning-generated-2.webp", "/services/terminal-cleaning-generated-3.webp"],
+  school: ["/services/school-cleaning-generated-1.webp", "/services/school-cleaning-generated-2.webp", "/services/school-cleaning-generated-3.webp"],
+  event: ["/services/event-cleaning-generated-1.webp", "/services/event-cleaning-generated-2.webp", "/services/event-cleaning-generated-3.webp"],
+  biohazard: ["/services/sanitary-treatment-generated-1.webp", "/services/sanitary-treatment-generated-2.webp", "/services/sanitary-treatment-generated-3.webp"],
+  foodProduction: ["/services/client/client-food-counter-cleaning-1.webp", "/services/client/client-laundry-production-1.webp", "/services/client/client-cleanroom-mopping-1.webp"],
+  staffOutsourcing: ["/services/team-uniform-1.webp", "/services/staff-outsourcing-generated-2.webp", "/services/staff-outsourcing-generated-3.webp"]
+} satisfies Record<string, readonly string[]>;
 
 const servicePhotoSetBySlug: Partial<Record<string, keyof typeof servicePhotoSets>> = {
   "uborka-ofisov": "office",
   "uborka-proizvodstva": "industrial",
   "uborka-skladov": "warehouse",
   "generalnaya-uborka": "general",
-  "uborka-posle-remonta": "postRenovation",
+  "uborka-posle-remonta": "renovation",
   "uborka-torgovyh-setey": "retail",
-  "uborka-promoborudovaniya": "industrial",
+  "uborka-promoborudovaniya": "equipment",
   "uborka-zhk": "residential",
   "uborka-restoranov-kafe": "kitchen",
+  "uborka-oteley": "hotel",
   "uborka-medcentrov": "medical",
   "uborka-fulfilmentov": "warehouse",
   "uborka-sportivnyh-obyektov": "sports",
@@ -270,14 +276,13 @@ const servicePhotoSetBySlug: Partial<Record<string, keyof typeof servicePhotoSet
   "himchistka-shtor": "curtain",
   "chistka-pola": "floor",
   "chistka-bruschatki": "paving",
-  "obespilivanie-ferm": "industrial",
+  "obespilivanie-ferm": "highDust",
   "moyka-okon": "windows",
   "klining-transporta": "transport",
   "klining-neftebaz": "fuel",
   "klining-transportnoy-infrastruktury": "terminal",
   "uborka-detskih-uchrezhdeniy": "school",
   "uborka-posle-meropriyatiy": "event",
-  "uborka-oteley": "hotel",
   "uborka-gosuchrezhdeniy": "government"
 };
 
@@ -289,8 +294,8 @@ function makeServiceVisuals(service: Service): ServiceVisuals {
 
   return {
     heroCover: photos[0],
-    pricingSectionImage: photos[1],
-    whyUsSplitImage: photos[2],
+    pricingSectionImage: photos[1] ?? photos[0],
+    whyUsSplitImage: photos[2] ?? photos[1] ?? photos[0],
     gallery: photos.map((src, index) => ({
       src,
       alt: `${service.title}: фото ${index + 1}`
@@ -709,17 +714,29 @@ export const extraServices = [
   {
     slug: "sanitarnaya-obrabotka",
     title: "Санитарная обработка",
-    description: "Конфиденциальное восстановление помещения после биологического загрязнения и несчастного случая."
+    description: "Конфиденциальное восстановление помещения после биологического загрязнения и несчастного случая.",
+    photos: servicePhotoSets.biohazard.map((src, index) => ({
+      src,
+      alt: `Санитарная обработка: фото ${index + 1}`
+    }))
   },
   {
     slug: "pishchevye-proizvodstva",
     title: "Пищевые производства",
-    description: "Клининг зон пищевого производства с учетом HACCP, GMP и СанПиН."
+    description: "Клининг зон пищевого производства с учетом HACCP, GMP и СанПиН.",
+    photos: servicePhotoSets.foodProduction.map((src, index) => ({
+      src,
+      alt: `Пищевые производства: фото ${index + 1}`
+    }))
   },
   {
     slug: "autsorsing-personala",
     title: "Аутсорсинг персонала",
-    description: "Подбор, вывод и замена уборочного персонала под регламент объекта."
+    description: "Подбор, вывод и замена уборочного персонала под регламент объекта.",
+    photos: servicePhotoSets.staffOutsourcing.map((src, index) => ({
+      src,
+      alt: `Аутсорсинг персонала: фото ${index + 1}`
+    }))
   }
 ];
 
@@ -742,6 +759,10 @@ export type CaseStudy = {
   result: string;
   serviceSlug: string;
   citySlug: string;
+  coverImage?: string;
+  photos?: { src: string; alt: string }[];
+  facts?: string[];
+  reporting?: string;
   /** Коротко: задача / сложности / решение — для страницы кейса */
   task?: string;
   challenge?: string;
@@ -752,55 +773,89 @@ export type CaseStudy = {
 export const cases: CaseStudy[] = [
   {
     slug: "yandex-market-sortcenter",
-    company: "Яндекс.Маркет",
-    title: "Ежедневная уборка сортировочного центра",
-    metric: "36 000 м2",
+    company: "Яндекс Маркет",
+    title: "Уборка сортировочного центра",
+    metric: "36 000 м2 · 15 сотрудников",
     result: "15 клинеров работают по графику без остановки операционных процессов.",
     serviceSlug: "uborka-skladov",
     citySlug: "ekaterinburg",
+    coverImage: "/services/client/case-yandex-market-sortcenter-1.webp",
+    photos: [
+      { src: "/services/client/case-yandex-market-sortcenter-1.webp", alt: "Машинная уборка сортировочного центра Яндекс Маркет" },
+      { src: "/services/client/client-warehouse-machine-2.webp", alt: "Машинная уборка складских проходов" },
+      { src: "/services/client/client-warehouse-machine-3.webp", alt: "Клининг технических зон склада" }
+    ],
+    facts: ["36 000 м2 сортировочного центра", "15 клинеров в графике", "уборка без остановки потока заказов", "резерв на срочный выезд"],
+    reporting: "Менеджер ведет чек-листы по зонам и фиксирует закрытие смен без срыва операционных процессов.",
     task: "Поддерживать чистоту сортировочного центра без остановки потока заказов.",
-    challenge: "Круглосуточная работа склада, строгие окна для уборки между сменами.",
-    solution: "Закреплённые бригады по графику, чек-листы по зонам, резерв на срочный выезд.",
+    challenge: "Круглосуточная работа склада и строгие окна для уборки между сменами.",
+    solution: "Закрепили бригады по графику, разделили зоны ответственности и оставили резерв на срочный выезд.",
     quote: "График не срывается даже в пиковые дни — это было ключевым критерием тендера."
   },
   {
-    slug: "zolla-set",
+    slug: "zolla-retail-network",
     company: "Zolla",
-    title: "Уборка сети магазинов",
-    metric: "1 350 уборок/мес",
-    result: "160 клинеров и 52 мобильные бригады в нескольких федеральных округах.",
-    serviceSlug: "uborka-ofisov",
-    citySlug: "chelyabinsk",
-    task: "Единый стандарт уборки в торговых точках в разных городах.",
-    challenge: "Разный формат магазинов и расписание работы торговых залов.",
-    solution: "Единый регламент сети, мобильные бригады и контроль качества по чек-листам.",
-    quote: "Нам нужна была предсказуемость — получили её по цифрам и отчётности."
+    title: "Регулярная уборка сети магазинов",
+    metric: "Сеть магазинов · ежедневный регламент",
+    result: "Торговые залы, примерочные и кассовые зоны поддерживаются в чистоте до открытия и в течение дня.",
+    serviceSlug: "uborka-torgovyh-setey",
+    citySlug: "ekaterinburg",
+    coverImage: "/services/client/case-zolla-store-1.webp",
+    photos: [
+      { src: "/services/client/case-zolla-store-1.webp", alt: "Уборка торгового зала Zolla" },
+      { src: "/services/client/client-retail-store-1.webp", alt: "Поддерживающая уборка магазина одежды" },
+      { src: "/services/client/client-shelf-cleaning-1.webp", alt: "Уборка полок и торгового оборудования" }
+    ],
+    facts: ["ежедневная уборка торговых залов", "поддержание чистоты в часы работы", "контроль примерочных и кассовой зоны", "расходники под контролем"],
+    reporting: "Ответственный менеджер собирает отметки по магазинам и быстро закрывает замечания администраторов.",
+    task: "Поддерживать единый уровень чистоты в магазинах сети, чтобы торговые залы были готовы к покупателям с открытия.",
+    challenge: "Высокий поток посетителей, примерочные, зеркальные поверхности и плотная выкладка товаров.",
+    solution: "Собрали регламент по зонам магазина: утренняя уборка до открытия и поддерживающие выходы в течение дня.",
+    quote: "Чистота торгового зала не должна зависеть от смены администратора — регламент держит стандарт сети."
   },
   {
-    slug: "mts-offices",
-    company: "МТС",
-    title: "Офисы и прилегающая территория",
-    metric: "15 400 м2",
-    result: "70 клинеров, приемка по графику и закрывающие документы.",
+    slug: "bc-pervomayskiy",
+    company: "БЦ «Первомайский»",
+    title: "Офисы, ресепшен и общие зоны",
+    metric: "7 800 м2 · 5 сотрудников",
+    result: "Утренний и вечерний регламент для офисных блоков, санузлов, переговорных и входной зоны.",
     serviceSlug: "uborka-ofisov",
     citySlug: "ekaterinburg",
-    task: "Регулярная уборка офисных блоков и прилегающей территории.",
-    challenge: "Высокая проходимость, требования к безопасности и документообороту.",
-    solution: "Закреплённые команды, акты и ЭДО, служебные записки для доступа на объект.",
-    quote: "Документы всегда в срок — для нас это так же важно, как качество уборки."
+    coverImage: "/services/client/case-bc-pervomayskiy-1.webp",
+    photos: [
+      { src: "/services/client/case-bc-pervomayskiy-1.webp", alt: "Уборка зоны ожидания БЦ «Первомайский»" },
+      { src: "/services/client/client-office-mop-1.webp", alt: "Поддерживающая уборка входной зоны бизнес-центра" },
+      { src: "/services/client/client-office-corridor-1.webp", alt: "Уборка коридора бизнес-центра" }
+    ],
+    facts: ["7 800 м2 офисных и общих зон", "5 сотрудников", "расходники под контролем", "акты и ЭДО каждый месяц"],
+    reporting: "Менеджер отправляет чек-лист по этажам и закрывает замечания арендаторов через ответственного администратора.",
+    task: "Поддерживать чистоту в офисных блоках, переговорных, санузлах и зоне ресепшен без помех арендаторам.",
+    challenge: "Разные режимы работы арендаторов и высокая проходимость входной группы.",
+    solution: "Вынесли основную уборку на утро и вечер, днем оставили поддерживающий контроль санузлов и ресепшен.",
+    quote: "Администратор видит статус по этажам и не тратит день на ручной обход."
   },
   {
-    slug: "biznes-park-tyumen",
-    company: "Бизнес-парк",
-    title: "Офисный блок и общие зоны БЦ",
-    metric: "9 200 м2",
-    result: "График до открытия и после 18:00 без помех арендаторам; акты и обходы по чек-листу.",
-    serviceSlug: "uborka-ofisov",
-    citySlug: "tyumen",
-    task: "Поддерживать единый вид этажей, переговорных и МОП при высокой заполняемости.",
-    challenge: "Разный режим арендаторов и ограничения по шуму в рабочее время.",
-    solution: "Утренний и вечерний слоты, закреплённые бригады по этажам, расходники по регламенту.",
-    quote: "АХО перестало тратить время на разбор жалоб по чистоте общих зон."
+    slug: "zhk-sibirskiy-sad",
+    company: "ЖК «Сибирский сад»",
+    title: "МОП, входные группы, паркинг и прилегающая территория",
+    metric: "Более 45 000 м2 · комфорт-класс",
+    result: "Регулярная уборка мест общего пользования, лестничных маршей, прилегающей территории и паркинга.",
+    serviceSlug: "uborka-zhk",
+    citySlug: "novosibirsk",
+    coverImage: "/services/client/case-sibirskiy-sad-mop-1.webp",
+    photos: [
+      { src: "/services/client/case-sibirskiy-sad-mop-1.webp", alt: "Уборка входной группы ЖК «Сибирский сад»" },
+      { src: "/services/client/client-sibir-mailboxes-1.webp", alt: "Уборка зоны почтовых ящиков ЖК «Сибирский сад»" },
+      { src: "/services/client/client-residential-corridor-1.webp", alt: "Уборка коридора жилого комплекса" },
+      { src: "/services/client/client-yard-sweeping-1.webp", alt: "Уборка прилегающей территории жилого комплекса" },
+      { src: "/services/client/case-sibirskiy-sad-parking-1.webp", alt: "Машинная уборка паркинга ЖК «Сибирский сад»" }
+    ],
+    facts: ["более 45 000 м2 в обслуживании", "дома комфорт-класса", "МОП, лестничные марши и паркинг", "резерв на срочный выезд"],
+    reporting: "УК получает фотоотчет по входным группам, почтовым зонам, паркингу и прилегающей территории.",
+    task: "Регулярная уборка мест общего пользования, лестничных маршей, прилегающей территории и паркинга.",
+    challenge: "Дома комфорт-класса с площадью более 45 000 м2, требование к высокому уровню обслуживания и быстрому реагированию на запросы жильцов.",
+    solution: "Высококвалифицированная команда клинеров и менеджеров, строгий чек-лист и резерв на срочный выезд.",
+    quote: "УК видит выполненные зоны в фотоотчете, а не собирает замечания от жителей вручную."
   }
 ];
 

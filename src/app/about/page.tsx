@@ -9,13 +9,13 @@ import { absoluteUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "О компании Mister FAPC",
-  description: "Mister FAPC: 12 лет на рынке, 420 сотрудников, 1 250 000 м2 площадей в работе, клининг для бизнеса и документы для юрлиц.",
+  description: "Mister FAPC: 15 лет на рынке с 2012 года, 420 сотрудников, 1 250 000 м2 площадей в работе, клининг для бизнеса и документы для юрлиц.",
   alternates: { canonical: absoluteUrl("/about/") }
 };
 
 export default function AboutPage() {
   const statNumbers = [
-    { value: 12, suffix: " лет" },
+    { value: 15, suffix: " лет" },
     { value: 97, suffix: "%" },
     { value: 420, suffix: "" },
     { value: 1250000, suffix: " м2" }
@@ -45,7 +45,7 @@ export default function AboutPage() {
         <SectionHeading title="История и рост" text="От точечных объектов к федеральным контрактам — сохраняем стандарты на каждой площадке." />
         <div className="grid gap-6 border-l-2 border-accent/30 pl-6">
           {[
-            ["2014–2018", "Фокус на региональных B2B-объектах и регламентах"],
+            ["2012–2018", "Фокус на региональных B2B-объектах и регламентах"],
             ["2019–2022", "Масштабирование бригад и мобильных команд"],
             ["2023–сейчас", "Федеральные сети, единые стандарты, усиленный контроль качества"]
           ].map(([years, text]) => (

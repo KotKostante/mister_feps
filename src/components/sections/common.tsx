@@ -114,15 +114,28 @@ export function CasesSection({
           const city = cities.find((c) => c.slug === item.citySlug)?.name ?? "";
           return (
             <Link key={item.slug} href={`/cases/${item.slug}/`} className="group block h-full">
-              <Card className="flex h-full flex-col transition group-hover:border-accent/40">
-                <p className="text-sm font-semibold text-primary">{item.company}</p>
-                <h3 className="mt-3 text-xl font-semibold">{item.title}</h3>
-                <p className="mt-4 text-2xl font-bold text-foreground">{item.metric}</p>
-                <p className="mt-1 text-xs text-muted">{city}</p>
-                <p className="mt-3 flex-1 text-sm font-medium leading-6 text-muted">{item.result}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
-                  Подробнее о кейсе →
-                </span>
+              <Card className="flex h-full flex-col overflow-hidden p-0 transition group-hover:border-accent/40">
+                {item.coverImage ? (
+                  <div className="relative aspect-[16/10] overflow-hidden border-b border-border">
+                    <Image
+                      src={encodeURI(item.coverImage)}
+                      alt={`${item.company}: ${item.title}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover transition duration-300 group-hover:scale-[1.025]"
+                    />
+                  </div>
+                ) : null}
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="text-sm font-semibold text-primary">{item.company}</p>
+                  <h3 className="mt-3 text-xl font-semibold">{item.title}</h3>
+                  <p className="mt-4 text-2xl font-bold text-foreground">{item.metric}</p>
+                  <p className="mt-1 text-xs text-muted">{city}</p>
+                  <p className="mt-3 flex-1 text-sm font-medium leading-6 text-muted">{item.result}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+                    Подробнее о кейсе →
+                  </span>
+                </div>
               </Card>
             </Link>
           );
@@ -209,6 +222,9 @@ export function CityContactsSection({ city }: { city: City }) {
           <p className="text-sm font-semibold text-primary">Телефон</p>
           <a href={phoneHref(city.phone)} className="mt-2 block text-2xl font-bold">
             {city.phone}
+          </a>
+          <a href={`mailto:${brand.email}`} className="mt-2 block text-sm font-semibold text-accent">
+            {brand.email}
           </a>
           <p className="mt-4 text-sm text-muted">{city.address}</p>
           <p className="mt-1 text-xs text-muted">{city.area}</p>

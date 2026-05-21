@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { JsonLd } from "@/components/json-ld";
@@ -39,13 +40,13 @@ export default async function ServicePage({ params }: Props) {
   if (!service && !extra) notFound();
 
   if (!service && extra) {
-    return <ExtraServicePage slug={extra.slug} title={extra.title} description={extra.description} />;
+    return <ExtraServicePage extra={extra} />;
   }
 
   if (!service) notFound();
 
   const casesForService = cases.filter((c) => c.serviceSlug === service.slug);
-  const casesListForPage = casesForService.length ? casesForService : cases;
+  const casesListForPage = casesForService;
 
   const pageFaq = [
     ...faqs.slice(0, 2),
@@ -66,7 +67,8 @@ export default async function ServicePage({ params }: Props) {
   );
 }
 
-function ExtraServicePage({ slug, title, description }: { slug: string; title: string; description: string }) {
+function ExtraServicePage({ extra }: { extra: (typeof extraServices)[number] }) {
+  const { slug, title, description, photos } = extra;
   const isSanitary = slug === "sanitarnaya-obrabotka";
   const sanitaryTexts = [
     "конфиденциальный выезд в течение 2 часов",
@@ -99,6 +101,28 @@ function ExtraServicePage({ slug, title, description }: { slug: string; title: s
         <h1 className="mt-5 text-4xl font-semibold leading-tight sm:text-5xl">{title}</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-muted">{description}</p>
       </Section>
+      {photos.length > 1 ? (
+        <Section id="service-gallery" className="bg-surface">
+          <SectionHeading title="Фото с объектов" />
+          <div className="grid gap-3 md:grid-cols-3 lg:gap-4">
+            {photos.map((item, index) => (
+              <figure
+                key={`${item.src}-${index}`}
+                className="group overflow-hidden rounded-lg border border-border bg-background shadow-soft transition hover:border-accent/40"
+              >
+                <Image
+                  src={encodeURI(item.src)}
+                  alt={item.alt}
+                  width={900}
+                  height={675}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="aspect-[16/10] h-auto w-full object-cover transition duration-300 group-hover:scale-[1.025]"
+                />
+              </figure>
+            ))}
+          </div>
+        </Section>
+      ) : null}
       <Section className="bg-surface">
         <SectionHeading title={isSanitary ? "Как работаем" : "Что входит"} text={isSanitary ? "Формулировки, документы и коммуникация сохраняют конфиденциальность для собственника и управляющего объектом." : "Состав работ фиксируем в КП и договоре."} />
         <div className="grid gap-4 md:grid-cols-2">

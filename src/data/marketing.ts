@@ -13,8 +13,7 @@ export const whyUsBenefitsDefault: { icon: WhyUsIconKey; title: string; desc: st
 ];
 
 /** Фон героя на главной (не смешивать с hero страниц услуг — там свой heroCover в site.ts) */
-export const MARKETING_HERO_BG =
-  "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80";
+export const MARKETING_HERO_BG = "/foto1.webp";
 
 /** Буллеты под акцентом в правой колонке героя */
 export const heroProductBullets = [
